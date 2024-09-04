@@ -94,8 +94,8 @@
     background-image: url("/Prueba/sudoku-app/assets/banner.png");
     filter: saturate(15%);
     position: relative;
-    width: 5vh;
-    height: 5vh;
+    width:  25px;
+    height: 25px;
     margin: 5px;
     background-color: rgba(161, 61, 61, 0.29);
     color: white;
