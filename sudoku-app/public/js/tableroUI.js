@@ -55,8 +55,7 @@ function crearTableroUI(){
 
     function esperarTecla(event) {
         estaBienLaTecla(event.key);
-        // Remover el listener una vez que se haya capturado la tecla
-        document.removeEventListener('keydown', esperarTecla);
+        
     }
 
     function estaBienLaTecla(numero) {
@@ -73,6 +72,7 @@ function crearTableroUI(){
             celdaActual.classList.add('acierto')
             celdaActual = null;
             aumentarContadorDeVictoria();
+            document.removeEventListener('keydown', esperarTecla);
 
         } else {
             //caso fallo

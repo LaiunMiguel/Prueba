@@ -1,5 +1,5 @@
 #juegoTablero{
-    background-image: url("/Prueba/sudoku-app/assets/banner.png");
+    background-image: url("/sudoku-app/assets/banner.png");
     position: relative;
     top: min(10vh);
     background-color: green;
@@ -25,7 +25,7 @@
     justify-content: center;
     font-size: 25px;
     align-items: center;
-    background-image: url("/Prueba/sudoku-app/assets/banner.png");
+    background-image: url("/sudoku-app/assets/banner.png");
     margin: 5px;
     width: 100%;
     height: 2vh;
@@ -37,7 +37,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-image: url("/Prueba/sudoku-app/assets/banner.png");
+    background-image: url("/sudoku-app/assets/banner.png");
     margin: 5px;
     width: 100%;
     height: 2vh;
@@ -49,7 +49,7 @@
 
 #bontonPista{
     position: relative;
-    background-image: url("/Prueba/sudoku-app/assets/banner.png");
+    background-image: url("/sudoku-app/assets/banner.png");
     margin: 5px;
     top: 5px;
     width: 10%;
@@ -63,7 +63,7 @@
 
     width: 25px; /* Ancho de cada cuadro del sprite */
     height: 25px; /* Altura de cada cuadro del sprite */
-    background-image: url("/Prueba/sudoku-app/assets/corazones.png");
+    background-image: url("/sudoku-app/assets/corazones.png");
     background-repeat: no-repeat;
     background-position: 0 0; /* Posición inicial del fondo */
     display: inline-block;
@@ -91,7 +91,7 @@
 }
 
 .celda{
-    background-image: url("/Prueba/sudoku-app/assets/banner.png");
+    background-image: url("/sudoku-app/assets/banner.png");
     filter: saturate(15%);
     position: relative;
     width: 5vh;
