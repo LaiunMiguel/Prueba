@@ -1,0 +1,108 @@
+#juegoTablero{
+    background-image: url("/sudoku-app/assets/banner.png");
+    position: relative;
+    top: min(10vh);
+    background-color: green;
+    width: fit-content;
+    height: fit-content;
+    margin: 5px;
+    padding: 5px;
+    display: none;
+}
+
+#contenedorInfo{
+    display: flex;
+    flex-direction: row;
+    background-color: rgba(4, 53, 4, 0);
+    width: auto;
+    height: fit-content;
+    margin: 5px;
+    padding: 5px;
+}
+.conenedorTiempo{
+    border: thick inset #2e1b35;
+    display: flex;
+    justify-content: center;
+    font-size: 25px;
+    align-items: center;
+    background-image: url("/sudoku-app/assets/banner.png");
+    margin: 5px;
+    width: 100%;
+    height: 2vh;
+    background-color: #3a387e;
+    filter: saturate(15%);
+    color: white;
+}
+.conenedorVidas{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-image: url("/sudoku-app/assets/banner.png");
+    margin: 5px;
+    width: 100%;
+    height: 2vh;
+    background-color: #3a387e;
+    filter: saturate(15%);
+    color: white;
+    border: thick inset #2e1b35;
+}
+
+#bontonPista{
+    position: relative;
+    background-image: url("/sudoku-app/assets/banner.png");
+    margin: 5px;
+    top: 5px;
+    width: 10%;
+    height: 2vh;
+    background-color: #3a387e;
+    filter: saturate(15%);
+    color: white;
+}
+
+.corazon{
+
+    width: 25px; /* Ancho de cada cuadro del sprite */
+    height: 25px; /* Altura de cada cuadro del sprite */
+    background-image: url("/sudoku-app/assets/corazones.png");
+    background-repeat: no-repeat;
+    background-position: 0 0; /* Posición inicial del fondo */
+    display: inline-block;
+
+}
+
+#tablero{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Tres columnas de igual tamaño */
+    gap: 1px; /* Espacio entre los elementos */
+    width: fit-content; /* Ajusta el ancho al contenido */
+    height: fit-content; /* Ajusta la altura al contenido */
+    background-color: rgba(225, 156, 156, 0);
+    margin: 5px;
+}
+.cuadro{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Tres columnas de igual tamaño */
+    gap: 1px; /* Espacio entre los elementos */
+    width: fit-content; /* Ajusta el ancho al contenido */
+    height: fit-content; /* Ajusta la altura al contenido */
+    background-color: rgba(0, 0, 0, 0.52);
+    margin: 1px;
+    padding: 1px;
+}
+
+.celda{
+    background-image: url("/sudoku-app/assets/banner.png");
+    filter: saturate(15%);
+    position: relative;
+    width: 5vh;
+    height: 5vh;
+    margin: 5px;
+    background-color: rgba(161, 61, 61, 0.29);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}

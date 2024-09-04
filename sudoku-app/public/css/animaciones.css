@@ -1,0 +1,100 @@
+
+@keyframes fallo {
+    0% {
+        filter: saturate(100%) sepia(0%) hue-rotate(0deg);
+        transform: translateX(0);
+    }
+    25% {
+        filter: saturate(250%) sepia(100%) hue-rotate(-50deg);
+        transform: translateX(-4px);
+    }
+    50% {
+        filter: saturate(250%) sepia(100%) hue-rotate(-50deg);
+        transform: translateX(4px);
+    }
+    75% {
+        filter: saturate(250%) sepia(100%) hue-rotate(-50deg);
+        transform: translateX(-4px);
+    }
+    100% {
+        filter: saturate(150%) sepia(100%) hue-rotate(-50deg);
+        transform: translateX(4px);
+    }
+}
+
+.fallo {
+    animation: fallo 0.5s ease;
+}
+
+@keyframes acierto {
+    0% {
+        filter: saturate(100%) sepia(0%) hue-rotate(0deg);
+        color: green;
+        transform: translateY(0);
+    }
+    25% {
+        filter: saturate(250%) sepia(100%) hue-rotate(200deg);
+        transform: translateY(-4px);
+        color: green;
+    }
+    50% {
+        color: green;
+        filter: saturate(250%) sepia(100%) hue-rotate(200deg);
+        transform: translateY(4px);
+        
+    }
+    75% {
+        color: green;
+        filter: saturate(250%) sepia(100%) hue-rotate(200deg);
+        transform: translateY(-4px);
+        
+    }
+    100% {
+        color: green;
+        filter: saturate(150%) sepia(100%) hue-rotate(200deg);
+        transform: translateY(4px);
+        
+    }
+}
+
+
+.acierto {
+    animation: acierto 0.5s ease;
+}
+
+
+@keyframes romper {
+    from {
+        background-position: 0 0;
+    }
+    to {
+        background-position: -100px 0; /* Desplaza el fondo a través del ancho total del sprite */
+    }
+
+}
+
+@keyframes temblar {
+    0% {
+        transform: translateX(-4px);
+    }
+    25% {
+        transform: translateY(4px);
+    }
+    50% {
+        transform: translateX(-4px); /* Ajusta el desplazamiento para el temblor */
+    }
+    75% {
+        transform: translateY(-4px); /* Ajusta el desplazamiento para el temblor */
+    }
+    100% {
+        transform: translateX(0);transform: translateY(0);
+    }
+}
+
+.temblar {
+    animation: temblar 0.5s;
+}
+
+.romper {
+    animation: romper 1s steps(4) forwards;
+}

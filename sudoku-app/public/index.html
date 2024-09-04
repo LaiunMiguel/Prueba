@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/animaciones.css">
+    <link rel="stylesheet" href="css/menus.css">
+    <link rel="stylesheet" href="css/ventanaJuego.css">
+
+    
+    <title>Sudoku</title>
+
+    <style>
+        body{
+            background-image: url("/sudoku-app/assets/background.jpg");
+            background-color: #d8d4b6;
+            display: flex;
+            justify-content: center;;
+            background-size: cover;
+
+        }
+
+    </style>
+</head>
+<body>
+    <div id="banner">
+        <div id="menuDespegable">
+            <button class="menuDespegable-boton">Nuevo Juego</button>
+            <div class="menuDesplejado">
+                <a href="#" class="dificultad" data-nivel=1>Facil</a>
+                <a href="#" class="dificultad" data-nivel=2>Medio</a>
+                <a href="#" class="dificultad" data-nivel=3>Dificil</a>
+                <a href="#" class="dificultad" data-nivel=4>Muy Dificil</a>
+            </div>
+        </div>
+        <div>
+            <button id="botonInfo" onclick="window.location.href='/datos';">Acerca De</button>
+        </div>
+    </div>
+    <div id = juegoTablero>
+            <div id= contenedorInfo>
+                <div id = vidas class="conenedorVidas">
+                    <span>Vidas: </span>
+                </div>
+                <button id="bontonPista">Pista</button>
+                <div id = timer class="conenedorTiempo">
+                    <span id="tiempo">0:00</span>
+                </div>
+            </div>
+            <div id = tablero></div>
+    </div>
+
+
+
+<script src="js/sudokuGenerator.js"></script>
+<script src="js/tablero.js"></script>
+<script src="js/tableroUI.js"></script>
+<script src="js/vidas.js"></script>
+<script src="js/tiempo.js"></script>
+
+</body>
+
+<script>
+
+    let casillasCompletas;
+
+    function modoGanador() {
+        detenerTemp()
+        bloquearCasillas()
+    }
+
+    function modoPerder() {
+        detenerTemp()
+        bloquearCasillas()
+    }
+
+    function aumentarContadorDeVictoria(){
+        casillasCompletas++
+        if(casillasCompletas === 81){
+            modoGanador();
+        }
+    }
+
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const menuDesplegado = document.querySelector('#menuDespegable .menuDesplejado');
+        menuDesplegado.addEventListener('click', (event) => {
+            // Verifica si el clic fue en un enlace
+            if (event.target.tagName === 'A' && event.target.classList.contains('dificultad')) {
+                event.preventDefault(); // Evita que el enlace realice su acción por defecto
+
+                // Llama a la función crearTablero() con el nivel adecuado
+                
+                iniciarTablero(event.target.dataset.nivel);
+
+            }
+        });
+    });
+
+</script>
+
+<script>
+    let tableroComportamiento;
+    let numeroCasilla;
+
+    function iniciarTablero(nivel) {
+        detenerTemp();
+        numeroCasilla  = 0 ; 
+        tableroComportamiento = new Tablero(nivel);
+        iniciarTemporizador();
+        crearTableroUI();
+        restaurarVidas();
+        casillasCompletas = 81 - (nivel*15);
+    }
+</script>
+
+</html>

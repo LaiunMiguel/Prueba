@@ -1,0 +1,76 @@
+#banner{
+    background-image: url("/sudoku-app/assets/banner.png");
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    background-color: lightblue;
+    width: 100%;
+    margin-bottom: 10px;
+
+}
+#menuDespegable{
+    left: 2%;
+    position: relative;
+    margin:5px;
+    display: inline-block;
+
+}
+.menuDespegable-boton {
+
+    background-color: rgba(54, 76, 54, 0);
+    color: white;
+    padding: 10px;
+    font-size: 16px;
+    border: thick inset #2e1b35;
+    cursor: pointer;
+    height: 35px;
+    display: flex;
+    align-items: center;
+
+}
+
+.menuDespegable-boton:hover {
+    background-color: rgba(46, 34, 34, 0.45);
+}
+
+.menuDesplejado {
+    display: none; /* Oculto por defecto */
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.menuDesplejado a {
+    background-image: url("/sudoku-app/assets/banner.png");
+    color: #ffffff;
+    background-color: #3a387e;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.menuDesplejado a:hover {
+    filter: invert(25%) saturate(1%);
+
+    background-color: #e30f0f;
+}
+
+#menuDespegable:hover .menuDesplejado {
+    display: block;
+}
+#botonInfo {
+    left: 20%;
+    position: relative;
+    background-color: rgba(54, 76, 54, 0);
+    color: white;
+    padding: 10px;
+    font-size: 16px;
+    border: thick inset #2e1b35;
+    cursor: pointer;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    margin: 5px;
+}
