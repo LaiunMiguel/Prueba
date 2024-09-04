@@ -12,7 +12,7 @@ class SudokuGenerator {
         // Crea una matriz 2D de tamaño `tamaño x tamaño` llena de ceros
         return Array.from({ length: tamaño }, () => Array(tamaño).fill(0));
     }
-/*
+
     completarTablero(fila, columna) {
         if (fila === this.cantCasillas) {
             return true;
@@ -39,39 +39,8 @@ class SudokuGenerator {
 
         return false;
     }
-*/
-    completarTablero(cuadro, celdaEnCuadro) {
-        if (cuadro === 9) {
-            return true; // Hemos llenado todos los cuadros
-        }
 
-        if (celdaEnCuadro === 9) {
-            return this.completarTablero(cuadro + 1, 0); // Pasar al siguiente cuadro
-        }
-
-        // Convertir la celda del cuadro en coordenadas de tablero
-        const fila = Math.floor(cuadro / 3) * 3 + Math.floor(celdaEnCuadro / 3);
-        const columna = (cuadro % 3) * 3 + (celdaEnCuadro % 3);
-
-        if (this.tablero[fila][columna] !== 0) {
-            return this.completarTablero(cuadro, celdaEnCuadro + 1); // Pasar a la siguiente celda del cuadro
-        }
-
-        let numeros = this.generarNumerosAleatorios();
-        for (let num of numeros) {
-            if (this.esValido(fila, columna, num)) {
-                this.tablero[fila][columna] = num;
-                if (this.completarTablero(cuadro, celdaEnCuadro + 1)) {
-                    return true;
-                }
-                this.tablero[fila][columna] = 0; // Deshacer si no se pudo resolver
-            }
-        }
-
-        return false;
-    }
-
-
+    
     esValido(fila, columna, numero) {
         return this.puedePonerElNumeroLineas(fila, columna, numero) &&
                this.esValidoCuadro(fila, columna, numero);
