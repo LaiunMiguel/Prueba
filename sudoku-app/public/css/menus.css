@@ -1,5 +1,5 @@
 #banner{
-    background-image: url("/sudoku-app/assets/banner.png");
+    background-image: url("/Prueba/sudoku-app/assets/banner.png");
     position: absolute;
     display: flex;
     flex-direction: row;
@@ -43,7 +43,7 @@
 }
 
 .menuDesplejado a {
-    background-image: url("/sudoku-app/assets/banner.png");
+    background-image: url("/Prueba/sudoku-app/assets/banner.png");
     color: #ffffff;
     background-color: #3a387e;
     padding: 12px 16px;
