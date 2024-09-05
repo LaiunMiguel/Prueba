@@ -6,7 +6,6 @@ let vidas = 3;
     }
 
     function perderVida(){
-        console.log(vidas)
         vidas--;
         corazon = document.getElementById('corazon' + vidas);
         corazon.classList.add('romper');
@@ -32,15 +31,6 @@ let vidas = 3;
         }
     }
 
-    
-
-    function bloquearCasillas() {
-        const celdas = document.querySelectorAll('.celda'); // Selecciona todas las celdas
-        celdas.forEach(celda => {
-            celda.removeEventListener('click', ingresarValor); // Remueve el eventListener de cada celda
-        });
-    }
-
     function vidasAgotadas() {
-        modoPerder()
+        finalizar();
     }

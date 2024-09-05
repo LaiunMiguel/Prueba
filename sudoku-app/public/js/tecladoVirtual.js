@@ -1,8 +1,9 @@
 
-let teclaActual = 0;
+let teclaActual;
 
 function iniciarTeclado(){
-    let juego   = document.getElementById('juegoTablero')
+    teclaActual = 0;
+    let juego   = document.getElementById('juegoTablero');
         let tablero = document.getElementById('tecladoVirtual');
         tablero.innerHTML = '';
         for (let i = 0; i < 3 ; i++) {

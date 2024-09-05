@@ -67,21 +67,22 @@ function crearTableroUI(){
         if (comprobacion) {
             //caso acierto
             celdaActual.textContent = numero;
-            celdaActual.style.color = 'white';
+            celdaActual.style.color = 'rgb(255, 255, 255)';
             celdaActual.removeEventListener('click',ingresarValor);
-            celdaActual.classList.add('acierto')
+            celdaActual.classList.add('temblar')
             celdaActual = null;
             aumentarContadorDeVictoria();
             document.removeEventListener('keydown', esperarTecla);
 
         } else {
             //caso fallo
-            celdaActual.classList.add('fallo')
+            celdaActual.classList.add('temblar')
             celdaActual.textContent = numero;
-            celdaActual.style.color = 'red';
+            celdaActual.style.color = 'rgb(255, 0, 0)';
             celdaActual.addEventListener('animationend', () => {
-                celdaActual.classList.remove('fallo');
+                celdaActual.classList.remove('temblar');   
             }, { once: true });
+            
 
             perderVida();
 

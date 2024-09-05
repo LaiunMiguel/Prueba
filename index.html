@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="sudoku-app/public/css/menus.css">
     <link rel="stylesheet" href="sudoku-app/public/css/ventanaJuego.css">
     <link rel="stylesheet" href="sudoku-app/public/css/tecladoVirtual.css">
+    <link rel="stylesheet" href="sudoku-app/public/css/menusFinalDelJuego.css">
 
     
     <title>Sudoku</title>
@@ -16,25 +17,39 @@
             background-image: url("/Prueba/sudoku-app/assets/background.jpg");
             background-color: #d8d4b6;
             display: flex;
-            justify-content: center;;
+            justify-content: center;
             background-size: cover;
+        }
+        css-doodle {
+            width: 60vmin;
+            height: 60vmin;
         }
 
     </style>
 </head>
 <body>
+   
     <div id="banner">
         <div id="menuDespegable">
             <button class="menuDespegable-boton">Nuevo Juego</button>
             <div class="menuDesplejado">
-                <a href="#" class="dificultad" data-nivel=1>Facil</a>
-                <a href="#" class="dificultad" data-nivel=2>Medio</a>
-                <a href="#" class="dificultad" data-nivel=3>Dificil</a>
-                <a href="#" class="dificultad" data-nivel=4>Muy Dificil</a>
+                <button class="dificultad" onclick="iniciarTablero(1)">Fácil</button>
+                <button class="dificultad" onclick="iniciarTablero(2)">Medio</button>
+                <button class="dificultad" onclick="iniciarTablero(3)">Difícil</button>
+                <button class="dificultad" onclick="iniciarTablero(4)">Muy Difícil</button>
             </div>
         </div>
         <div>
             <button id="botonInfo" onclick="window.location.href='/datos';">Acerca De</button>
+        </div>
+    </div>
+
+ 
+    <div id="terminoLaPartida" class="mensaje ocultar">
+        <p id="mensajeFinal"></p>
+        <div class="contBotones">
+            <button class="botonFinal" onclick="nuevoJuego()">Nuevo Juego</button>
+            <button class="botonFinal" onclick="verTablero()">Ver tablero</button>
         </div>
     </div>
     <div id = juegoTablero>
@@ -59,64 +74,26 @@
 <script src="sudoku-app/public/js/tableroUI.js"></script>
 <script src="sudoku-app/public/js/vidas.js"></script>
 <script src="sudoku-app/public/js/tiempo.js"></script>
+<script src="sudoku-app/public/js/finalizador.js"></script>
 
 </body>
 
-<script>
 
-    let casillasCompletas;
-
-    function modoGanador() {
-        detenerTemp()
-        bloquearCasillas()
-    }
-
-    function modoPerder() {
-        detenerTemp()
-        bloquearCasillas()
-        document.removeEventListener('keydown', esperarTecla);
-    }
-
-    function aumentarContadorDeVictoria(){
-        casillasCompletas++
-        if(casillasCompletas === 81){
-            modoGanador();
-        }
-    }
-
-</script>
-
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const menuDesplegado = document.querySelector('#menuDespegable .menuDesplejado');
-        menuDesplegado.addEventListener('click', (event) => {
-            // Verifica si el clic fue en un enlace
-            if (event.target.tagName === 'A' && event.target.classList.contains('dificultad')) {
-                event.preventDefault(); // Evita que el enlace realice su acción por defecto
-
-                // Llama a la función crearTablero() con el nivel adecuado
-                menuDesplegado.classList.add('ocultar');
-                iniciarTablero(event.target.dataset.nivel);
-
-            }
-        });
-    });
-
-</script>
 
 <script>
     let tableroComportamiento;
     let numeroCasilla;
-
+    let tableroUI;
     function iniciarTablero(nivel) {
+        numeroCasilla = 0;
         detenerTemp();
-        numeroCasilla  = 0 ; 
         tableroComportamiento = new Tablero(nivel);
         iniciarTemporizador();
         crearTableroUI();
         iniciarTeclado();
         restaurarVidas();
-        casillasCompletas = 81 - (nivel*15);
+        casillasCompletas = 80
+        tableroUI = document.getElementById("tablero");
     }
 </script>
 

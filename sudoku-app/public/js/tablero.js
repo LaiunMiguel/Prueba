@@ -48,6 +48,7 @@ class Tablero{
 
     imprimirTablero(){
          this.generador.imprimirTablero();
+         console.log(this.tablero[5]);
     }
 
 }     

@@ -42,28 +42,33 @@
     z-index: 1;
 }
 
-.menuDesplejado a {
+.menuDesplejado button  {
     background-image: url("/Prueba/sudoku-app/assets/banner.png");
     color: #ffffff;
+    padding: 12px 16px;
     background-color: #3a387e;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
+    border: none; 
+    width: 100%; 
+    text-align: left; 
 }
 
-.menuDesplejado a:hover {
+.menuDesplejado button:hover {
     filter: invert(25%) saturate(1%);
-
+    border: thick inset #2e1b35;
     background-color: #e30f0f;
 }
 
 #menuDespegable:hover .menuDesplejado {
     display: block;
 }
-
 .ocultar{
     display: none;
 }
+
+
 #botonInfo {
     left: 20%;
     position: relative;
@@ -77,4 +82,8 @@
     display: flex;
     align-items: center;
     margin: 5px;
+}
+
+#menuDespegable.show-menu .menuDesplejado {
+    display: block;
 }

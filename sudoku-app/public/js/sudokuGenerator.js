@@ -2,11 +2,33 @@ class SudokuGenerator {
     constructor() {
         this.cantCasillas = 9;
         this.tablero = this.crearMatrizVacia(this.cantCasillas);
+        this.tableroReordenado = this.crearMatrizVacia(this.cantCasillas);
         
+
+
+        //creo el tablero fila por fila ya que es mas eficiente de esta manera 
         if (!this.completarTablero(0, 0)) {
             console.log("No se pudo generar un tablero válido.");
         }
+        this.reordenarTablero();
     }
+
+    //reordeno para que cada lista represente un cuadrado
+    reordenarTablero(){  
+            // Recorremos cada fila y columna 
+            for (let fila = 0; fila < 9; fila++) {
+                for (let columna = 0; columna < 9; columna++) {
+                    // Determinamos el índice del cuadro (0-8)
+                    let cuadro = Math.floor(fila / 3) * 3 + Math.floor(columna / 3);
+                    // Determinamos la posición dentro del cuadro
+                    let posDentroDelCuadro = (fila % 3) * 3 + (columna % 3);
+                    // Asignamos el valor al nuevo tablero por cuadros
+                    this.tableroReordenado[cuadro][posDentroDelCuadro] = this.tablero[fila][columna];
+                }
+            }
+     }
+        
+
     
     crearMatrizVacia(tamaño) {
         // Crea una matriz 2D de tamaño `tamaño x tamaño` llena de ceros
@@ -78,7 +100,7 @@ class SudokuGenerator {
     }
 
     getTablero() {
-        return this.tablero;
+        return this.tableroReordenado;
     }
 
     imprimirTablero() {
