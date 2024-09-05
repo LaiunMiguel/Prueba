@@ -65,6 +65,6 @@ function aumentarContadorDeVictoria(){
 function bloquearCasillas() {
     const celdas = document.querySelectorAll('.celda'); // Selecciona todas las celdas
     celdas.forEach(celda => {
-        celda.removeEventListener('click', ingresarValor); // Remueve el eventListener de cada celda
+        celda.removeEventListener('click', editable); // Remueve el eventListener de cada celda
     });
 }

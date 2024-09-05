@@ -93,8 +93,7 @@
 }
 
 .celda{
-    border-width: 10px;
-    border-color:red ;
+    box-sizing: border-box;
     position: relative;
     width:  30px;
     height: 30px;
@@ -107,4 +106,23 @@
     font-size: 20px;
     font-weight: bold;
     cursor: pointer;
+}
+
+.celda:hover {
+
+    position: relative;
+    border: 2px solid red;
+    background-color: rgb(59, 16, 214);
+   
+}
+
+.celda-resaltada {
+    background-color: rgb(51, 28, 134); /* Cambia este color a lo que prefieras */
+}
+
+.celda-mismoNumero {
+    border: 1px solid rgb(255, 255, 255);
+    background-color: rgb(77, 73, 94); /* Cambia este color a lo que prefieras */
+    font-size: 20px;
+
 }
