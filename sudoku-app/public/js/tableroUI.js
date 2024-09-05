@@ -151,7 +151,7 @@ function remarcarMismoNumero(listaDeCuadros,numeroHijo){
             //caso acierto
             celdaActual.textContent = numero;
             celdaActual.style.color = 'rgb(255, 255, 255)';
-            celdaActual.removeEventListener('click',ingresarValor);
+            celdaActual.removeEventListener('click',editable);
             celdaActual.classList.add('temblar')
             celdaActual = null;
             aumentarContadorDeVictoria();
