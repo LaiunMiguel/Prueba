@@ -6,17 +6,18 @@
     background-color: lightblue;
     width: 100%;
     margin-bottom: 10px;
+    justify-content: space-between
+
 
 }
 #menuDespegable{
-    left: 2%;
     position: relative;
     margin:5px;
     display: inline-block;
 
 }
-.menuDespegable-boton {
 
+.menuDespegable-boton {
     background-color: rgba(54, 76, 54, 0);
     color: white;
     padding: 10px;
@@ -26,7 +27,6 @@
     height: 35px;
     display: flex;
     align-items: center;
-
 }
 
 .menuDespegable-boton:hover {
@@ -68,9 +68,13 @@
     display: none;
 }
 
+.botonContainer {
+    display: flex; /* Utiliza Flexbox para el contenedor de los botones */
+    justify-content: space-between; /* Distribuye el espacio entre los botones */
+    align-items: center; /* Alinea los botones verticalmente al centro */
+}
 
-#botonInfo {
-    left: 20%;
+.botonInfo {
     position: relative;
     background-color: rgba(54, 76, 54, 0);
     color: white;

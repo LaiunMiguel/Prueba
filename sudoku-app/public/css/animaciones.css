@@ -76,6 +76,21 @@
     }
 }
 
+
+@keyframes vibrar {
+    0%, 100% {
+        transform: translateY(0) translateX(0px);
+    }
+
+    25%,75%{transform: translateY(5px);
+    }   
+
+    50% {
+        transform: translateX(10px);
+    }
+
+}
+
 .tada {
     animation: tada 1s ease infinite; /* Cambiado para incluir 'ease' y 'infinite' */
 }
@@ -92,4 +107,8 @@
 .romper {
     animation: romper 1s steps(4) forwards;
 
+}
+
+.pista{
+    animation: vibrar 0.2s infinite;
 }

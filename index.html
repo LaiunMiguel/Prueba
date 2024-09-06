@@ -3,12 +3,13 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="sudoku-app/public/css/root.css">
     <link rel="stylesheet" href="sudoku-app/public/css/animaciones.css">
     <link rel="stylesheet" href="sudoku-app/public/css/menus.css">
     <link rel="stylesheet" href="sudoku-app/public/css/ventanaJuego.css">
     <link rel="stylesheet" href="sudoku-app/public/css/tecladoVirtual.css">
     <link rel="stylesheet" href="sudoku-app/public/css/menusFinalDelJuego.css">
-
+    <link rel="stylesheet" href="sudoku-app/public/css/menuConfig.css">
     
     <title>Sudoku</title>
 
@@ -18,33 +19,72 @@
             background-color: #d8d4b6;
             display: flex;
             justify-content: center;
-            background-size: cover;
+            background-repeat: no-repeat; 
+  
+                             
         }
-        css-doodle {
-            width: 60vmin;
-            height: 60vmin;
-        }
-
+       
     </style>
 </head>
 <body>
    
     <div id="banner">
-        <div id="menuDespegable">
-            <button class="menuDespegable-boton">Nuevo Juego</button>
-            <div class="menuDesplejado">
-                <button class="dificultad" onclick="iniciarTablero(1)">Fácil</button>
-                <button class="dificultad" onclick="iniciarTablero(2)">Medio</button>
-                <button class="dificultad" onclick="iniciarTablero(3)">Difícil</button>
-                <button class="dificultad" onclick="iniciarTablero(4)">Muy Difícil</button>
+        <div style="display: flex; flex-direction: row";>
+            <div id="menuDespegable">
+                <button class="menuDespegable-boton">Nuevo Juego</button>
+                <div class="menuDesplejado">
+                    <button class="dificultad" onclick="iniciarTablero(1)">Fácil</button>
+                    <button class="dificultad" onclick="iniciarTablero(2)">Medio</button>
+                    <button class="dificultad" onclick="iniciarTablero(3)">Difícil</button>
+                    <button class="dificultad" onclick="iniciarTablero(4)">Muy Difícil</button>
+                </div>
             </div>
-        </div>
+            <button id="botonConfiguraciones" class="botonInfo" onclick="guardarPartida()">Guardar</button>   
+            <button id="botonConfiguraciones" class="botonInfo" onclick="recargarPartida()">Cargar</button>   
+            <button id="botonConfiguraciones" class="botonInfo" onclick="abrirConfiguracion()">Configuración</button>   
+    </div>   
         <div>
-            <button id="botonInfo" onclick="window.location.href='/datos';">Acerca De</button>
+            <button id="botonReinicarConfiguraciones" class="botonInfo" onclick="reiniciarDeFabrica()">Reiniciar configuración</button>
+        </div> 
+        
+        
+    </div>
+
+    <div id="configMenu" class="configMenu ocultar "> 
+        <div class="config">
+            <div class="textConfig">Tablero</div>
+            <input type="color" class="configColor" id="colorTablero">
+        </div>
+        <div class="config">
+            <div class="textConfig">Cuadros</div>
+            <input type="color" class="configColor" id="colorCuadros">
+        </div>
+        <div class="config">
+            <div class="textConfig">Celdas</div>
+            <input type="color" class="configColor" id="colorCeldas">
+        </div>
+        <div class="config">
+            <div class="textConfig">Celdas Completadas</div>
+            <input type="color" class="configColor" id="colorCeldasCompletadas">
+        </div>
+        <div class="config">
+            <div class="textConfig">Numeros </div>
+            <input type="color" class="configColor" id="colorNumeros">
+        </div>
+        <div class="config">
+            <div class="textConfig">Filas y Columunas</div>
+            <input type="color" class="configColor" id="colorFyC">
+        </div>
+        <div class="config">
+            <div class="textConfig">Resalte de Numeros</div>
+            <input type="color" class="configColor" id="colorResalteNumeros">
+        </div> 
+        <div class="divBotones">
+            <button class= "botonConfig" onclick="guardarMenuConfig()">Guardar</button>
+            <button class= "botonConfig" onclick="cancelarMenuConfig()">Cancelar</button>
         </div>
     </div>
 
- 
     <div id="terminoLaPartida" class="mensaje ocultar">
         <p id="mensajeFinal"></p>
         <div class="contBotones">
@@ -57,7 +97,7 @@
                 <div id = vidas class="conenedorVidas">
                     <span>Vidas: </span>
                 </div>
-                <button id="bontonPista"  onclick="pista()">Pista</button>
+                <button id="bontonPista"  onclick="pedirPista()">Pista</button>
                 <div id = timer class="conenedorTiempo">
                     <span id="tiempo">0:00</span>
                 </div>
@@ -67,7 +107,6 @@
     </div>
 
 
-
 <script src="sudoku-app/public/js/sudokuGenerator.js"></script>
 <script src="sudoku-app/public/js/tablero.js"></script>
 <script src="sudoku-app/public/js/tecladoVirtual.js"></script>
@@ -75,26 +114,44 @@
 <script src="sudoku-app/public/js/vidas.js"></script>
 <script src="sudoku-app/public/js/tiempo.js"></script>
 <script src="sudoku-app/public/js/finalizador.js"></script>
+<script src="sudoku-app/public/js/contadores.js"></script>
+<script src="sudoku-app/public/js/config.js"></script>
+<script src="sudoku-app/public/js/moverConfig.js"></script>
+<script src="sudoku-app/public/js/pista.js"></script>
+<script src="sudoku-app/public/js/guardarPartida.js"></script>
 
 </body>
 
-
-
 <script>
+    cargarColoresDesdeLocalStorage();
     let tableroComportamiento;
-    let numeroCasilla;
-    let tableroUI;
     function iniciarTablero(nivel) {
-        numeroCasilla = 0;
         detenerTemp();
         tableroComportamiento = new Tablero(nivel);
         iniciarTemporizador();
         crearTableroUI();
+        iniciarConteo();
         iniciarTeclado();
+        removerTeclas();
         restaurarVidas();
         casillasCompletas = 81 - (nivel*15);
-        tableroUI = document.getElementById("tablero");
+        cargarConfiguarcion();
     }
+
+    function recargarPartida(){
+        detenerTemp();
+        tableroComportamiento = cargarPartida();
+        iniciarTemporizador();
+        crearTableroUI();
+        iniciarConteo();
+        iniciarTeclado();
+        removerTeclas();
+        restaurarVidas();
+        casillasCompletas = cargarCasillasCompletas()
+        cargarConfiguarcion();
+    }
+
+
 </script>
 
 </html>

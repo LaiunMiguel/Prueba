@@ -30,10 +30,28 @@ function crearTeclas(contenedorNumeros){
 
 function configurarTecla(tecla){
     tecla.textContent = tecla.dataset.numero;
-    tecla.textContent = tecla.dataset.numero;
     tecla.addEventListener('click', () => {
             if (celdaActual && vidas > 0) {
                 estaBienLaTecla(tecla.dataset.numero);
             }
         });
     }
+
+
+function removerTeclas(){
+    teclasVeces
+    for (let i = 0; i < teclasVeces.length; i++) {
+        if(teclasVeces[i] == 9){
+            removerTecla(i);
+        }
+    }
+}
+
+function removerTecla(numero){
+    const teclas = document.querySelectorAll('.tecla-numero');
+    for (let tecla of teclas) {
+        if (parseInt(tecla.dataset.numero) === numero+1) {
+             tecla.style.visibility = 'hidden';
+        }
+    }
+}

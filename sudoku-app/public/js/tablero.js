@@ -38,6 +38,10 @@ class Tablero{
         this.tablero[numero].noVisible();
     }
 
+    hacerVisible(numeroDeLaCelda){
+        this.tablero[numeroDeLaCelda].hacerVisible();
+    }
+
     getCeldaNumero(numero){
         return this.tablero[numero];
     }
@@ -67,6 +71,10 @@ class Celda {
 
     isVisible(){
         return this.esVisible;
+    }
+
+    hacerVisible(){
+        this.esVisible = true;
     }
 
     getValor(){

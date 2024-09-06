@@ -1,14 +1,13 @@
 //Variable para  hacer comprobaciones 
 let celdaActual;
-let filasOcupadas    = 0;
-let columnasOcupadas = 0;
+let numeroCasilla;
+const juego   = document.getElementById('juegoTablero')
+const tablero = document.getElementById('tablero');
 
 function crearTableroUI(){
 
-        
-        let juego   = document.getElementById('juegoTablero')
+        numeroCasilla = 0;
         juego.style.display = 'block';
-        let tablero = document.getElementById('tablero');
         tablero.innerHTML = '';
         for (let i = 0; i < 9; i++) {
                 cuadro = document.createElement('div');
@@ -37,11 +36,14 @@ function crearTableroUI(){
         let celdaDelTableroBack = tableroComportamiento.getCeldaNumero(numeroCasilla);   
         let boolean = celdaDelTableroBack.isVisible();
 
+
         celda.addEventListener("click", seleccionable);
         if(boolean){
             celda.textContent = celdaDelTableroBack.getValor();
+            celda.classList.add("celdaCompleta");
         }
         else {
+            celda.classList.add("celdaIncompleta")
             celda.addEventListener("click", editable);
         }
 
@@ -61,6 +63,45 @@ function crearTableroUI(){
     function esperarTecla(event) {
         estaBienLaTecla(event.key);
         
+    }
+
+
+    
+    function estaBienLaTecla(numero) {
+
+        let celdaNumero = celdaActual.dataset.numero
+
+        let comprobacion = tableroComportamiento.estaBienParaElNumero(celdaNumero,numero);
+
+        if (comprobacion) {
+            //caso acierto
+            celdaActual.textContent = numero;
+            celdaActual.classList.remove('celdaIncompleta');
+            celdaActual.removeEventListener('click',editable);
+            celdaActual.classList.add('temblar')
+            document.removeEventListener('keydown', esperarTecla);
+            celdaActual.classList.add("celdaCompleta");
+            aumentarContadorDeVictoria();
+            aumentarContador(numero)
+            tableroComportamiento.hacerVisible(celdaNumero);
+            celdaActual = null;
+        } else {
+            //caso fallo
+            celdaActual.classList.add('temblar')
+            celdaActual.textContent = numero;
+            celdaActual.addEventListener('animationend', () => {
+                celdaActual.classList.remove('temblar');   
+            }, { once: true });
+            perderVida();
+
+
+        }
+    }
+
+    function hechaPorPista(celda){
+        celdaActual = celda;
+        celdaDelTableroBack = tableroComportamiento.getCeldaNumero(celda.dataset.numero);   
+        estaBienLaTecla(celdaDelTableroBack.getValor())
     }
 
     function seleccionable(event) {
@@ -141,39 +182,5 @@ function remarcarMismoNumero(listaDeCuadros,numeroHijo){
     }
     
 
-    function estaBienLaTecla(numero) {
 
-        let celdaNumero = celdaActual.dataset.numero
-
-        let comprobacion = tableroComportamiento.estaBienParaElNumero(celdaNumero,numero);
-
-        if (comprobacion) {
-            //caso acierto
-            celdaActual.textContent = numero;
-            celdaActual.style.color = 'rgb(255, 255, 255)';
-            celdaActual.removeEventListener('click',editable);
-            celdaActual.classList.add('temblar')
-            celdaActual = null;
-            aumentarContadorDeVictoria();
-            document.removeEventListener('keydown', esperarTecla);
-
-        } else {
-            //caso fallo
-            celdaActual.classList.add('temblar')
-            celdaActual.textContent = numero;
-            celdaActual.style.color = 'rgb(255, 0, 0)';
-            celdaActual.addEventListener('animationend', () => {
-                celdaActual.classList.remove('temblar');   
-            }, { once: true });
-            
-
-            perderVida();
-
-
-        }
-    }
-
-    function pista(event) {
-        
-    }
     
