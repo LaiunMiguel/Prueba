@@ -1,13 +1,12 @@
 let temporizador;
 
+
 function iniciarTemporizador() {
     
-
-    let minutos = 0;
-    let segundos = 0;
+    let segundosFormateados = segundos < 10 ? '0' + segundos : segundos;
 
     const spanTiempo = document.getElementById('tiempo');
-    spanTiempo.textContent = `0:00`;
+    spanTiempo.textContent = `${minutos}:${segundosFormateados}`;
     temporizador = setInterval(() => {
         segundos++;
 
@@ -17,12 +16,14 @@ function iniciarTemporizador() {
         }
 
         // Formatear los segundos para que siempre se muestren con dos dígitos
-        const segundosFormateados = segundos < 10 ? '0' + segundos : segundos;
-
+        
+        segundosFormateados = segundos < 10 ? '0' + segundos : segundos;
         spanTiempo.textContent = `${minutos}:${segundosFormateados}`;
     }, 1000); // 1000 ms = 1 segundo
 
 }
+
+
 
 function detenerTemp() {
     clearInterval(temporizador);

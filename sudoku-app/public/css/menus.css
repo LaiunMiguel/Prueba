@@ -57,15 +57,18 @@
 
 .menuDesplejado button:hover {
     filter: invert(25%) saturate(1%);
-    border: thick inset #2e1b35;
-    background-color: #e30f0f;
 }
 
-#menuDespegable:hover .menuDesplejado {
-    display: block;
+.menuDesplejado button:active{
+    filter: invert(50%) saturate(1%);
 }
-.ocultar{
+
+#menuDespegable .menuDesplejado {
     display: none;
+}
+
+#menuDespegable.show-menu .menuDesplejado {
+    display: block;
 }
 
 .botonContainer {
@@ -88,6 +91,8 @@
     margin: 5px;
 }
 
-#menuDespegable.show-menu .menuDesplejado {
-    display: block;
+
+.botonInfo:active {
+    transform: translateY(2px);
+    border: thick inset #c876e4;
 }

@@ -1,9 +1,3 @@
-let vidas = 3;
-
-    function restaurarVidas(){
-        vidas = 3;
-        actualizarVidas()
-    }
 
     function perderVida(){
         vidas--;

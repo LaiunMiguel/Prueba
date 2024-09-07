@@ -19,11 +19,13 @@
             background-color: #d8d4b6;
             display: flex;
             justify-content: center;
-            background-repeat: no-repeat; 
+            background-repeat: repeat;
+            background-size: 35%;
+            background-position: center; 
   
                              
         }
-       
+   
     </style>
 </head>
 <body>
@@ -31,7 +33,7 @@
     <div id="banner">
         <div style="display: flex; flex-direction: row";>
             <div id="menuDespegable">
-                <button class="menuDespegable-boton">Nuevo Juego</button>
+                <button class="menuDespegable-boton" onclick="abrirMenu()" >Nuevo Juego</button>
                 <div class="menuDesplejado">
                     <button class="dificultad" onclick="iniciarTablero(1)">Fácil</button>
                     <button class="dificultad" onclick="iniciarTablero(2)">Medio</button>
@@ -39,15 +41,14 @@
                     <button class="dificultad" onclick="iniciarTablero(4)">Muy Difícil</button>
                 </div>
             </div>
-            <button id="botonConfiguraciones" class="botonInfo" onclick="guardarPartida()">Guardar</button>   
-            <button id="botonConfiguraciones" class="botonInfo" onclick="recargarPartida()">Cargar</button>   
-            <button id="botonConfiguraciones" class="botonInfo" onclick="abrirConfiguracion()">Configuración</button>   
-    </div>   
+            <button id="botonGuardar" class="botonInfo" onclick="guardarPartida()">Guardar Partida</button>   
+            <button id="botonCarga" class="botonInfo" onclick="recargarPartida()">Cargar Partida</button>   
+            <button class="botonInfo" onclick="abrirConfiguracion()">Configurar Colores</button>   
+        </div>   
+        
         <div>
-            <button id="botonReinicarConfiguraciones" class="botonInfo" onclick="reiniciarDeFabrica()">Reiniciar configuración</button>
-        </div> 
-        
-        
+            <button id="botonReinicarConfiguraciones" class="botonInfo" onclick="reiniciarDeFabrica()">Reiniciar Colores</button>
+        </div>  
     </div>
 
     <div id="configMenu" class="configMenu ocultar "> 
@@ -83,6 +84,13 @@
             <button class= "botonConfig" onclick="guardarMenuConfig()">Guardar</button>
             <button class= "botonConfig" onclick="cancelarMenuConfig()">Cancelar</button>
         </div>
+    </div>
+
+    <div id="menuFinDelJuegoNuevaPartida" class="newGameMenu">
+                    <button class="botonInfo" onclick="iniciarTablero(1)">Fácil</button>
+                    <button class="botonInfo" onclick="iniciarTablero(2)">Medio</button>
+                    <button class="botonInfo" onclick="iniciarTablero(3)">Difícil</button>
+                    <button class="botonInfo" onclick="iniciarTablero(4)">Muy Difícil</button>
     </div>
 
     <div id="terminoLaPartida" class="mensaje ocultar">
@@ -123,9 +131,34 @@
 </body>
 
 <script>
+    
+    const menuNuevoJuego = document.getElementById('menuDespegable');
+    const menuFinDelJuegoNuevaPartida = document.getElementById('menuFinDelJuegoNuevaPartida');
+
+    function abrirMenu(){
+        menuNuevoJuego.classList.add('show-menu');
+    }
+
+    function cerrarMenu(){
+        menuNuevoJuego.classList.remove('show-menu'); 
+        menuFinDelJuegoNuevaPartida.classList.add('ocultar');
+
+    }
+</script>
+
+
+<script>
     cargarColoresDesdeLocalStorage();
+
     let tableroComportamiento;
+    let minutos;
+    let segundos;
+    let vidas;
+
     function iniciarTablero(nivel) {
+        minutos  = 0;
+        segundos = 0;
+        vidas =3;
         detenerTemp();
         tableroComportamiento = new Tablero(nivel);
         iniciarTemporizador();
@@ -133,22 +166,28 @@
         iniciarConteo();
         iniciarTeclado();
         removerTeclas();
-        restaurarVidas();
+        actualizarVidas();
         casillasCompletas = 81 - (nivel*15);
         cargarConfiguarcion();
+        habilitarGuardado()
+        cerrarMenu()
     }
 
     function recargarPartida(){
         detenerTemp();
         tableroComportamiento = cargarPartida();
+        cargarTemporizador();
+        cargarVidas();
         iniciarTemporizador();
         crearTableroUI();
         iniciarConteo();
         iniciarTeclado();
         removerTeclas();
-        restaurarVidas();
+        actualizarVidas();
         casillasCompletas = cargarCasillasCompletas()
         cargarConfiguarcion();
+        habilitarGuardado()
+        cerrarMenu()
     }
 
 

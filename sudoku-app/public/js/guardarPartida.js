@@ -4,8 +4,19 @@ function guardarPartida() {
         idCelda: celda.idCelda,
         esVisible: celda.esVisible
     }));
+
+    const tiempo = {
+        
+        minutos: minutos,
+        segundos: segundos,
+
+    };
+
+    console.log(minutos);
     localStorage.setItem('estadoPartida', JSON.stringify(estado));
     localStorage.setItem('distanciaDeVictoria', JSON.stringify(casillasCompletas));
+    localStorage.setItem('tiempo', JSON.stringify(tiempo));
+    localStorage.setItem('vidas', JSON.stringify(vidas));
 }
 
 
@@ -27,10 +38,29 @@ function cargarPartida() {
 
 function cargarCasillasCompletas(){
     const estadoGuardado = JSON.parse(localStorage.getItem('distanciaDeVictoria'));
-    console.log(estadoGuardado)
     if (estadoGuardado) {
         return estadoGuardado; // Devolver el tablero con el estado restaurado
     }
     return null; // No hay estado guardado
 }
+
+function cargarTemporizador(){
+    const estadoGuardado = JSON.parse(localStorage.getItem('tiempo'));
+    if (estadoGuardado) {
+        minutos = estadoGuardado.minutos;
+        segundos = estadoGuardado.segundos;
+    }
+
+}
+
+function cargarVidas(){
+    const estadoGuardado = JSON.parse(localStorage.getItem('vidas'));
+    if (estadoGuardado) {
+        vidas = estadoGuardado;
+    }
+    else {vidas = 3}
+}
+
+
+
 
