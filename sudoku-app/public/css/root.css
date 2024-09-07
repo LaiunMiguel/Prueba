@@ -1,9 +1,10 @@
 :root {
-    --colorTablero: #1c1c1c; /* Obsidiana muy oscura */
-    --colorCuadro: #2e2e2e; /* Gris oscuro con matices morados */
-    --colorCelda: #3a3a3a; /* Gris más claro con matices morados */
-    --colorCeldaCompleta: #4b3a5d; /* Morado oscuro */
-    --colorNumeros: #e8e8e8; /* Gris muy claro para los números */
-    --colorResalte: #5c2a8d; /* Morado oscuro con matices azules */
-    --colorNumerosResaltados: #9b7f9f; /* Morado suave */
+    --colorMarco:#171c61 ;
+    --colorTablero: #001f33; /* Azul muy oscuro */
+    --colorCuadro: #003366; /* Azul profundo */
+    --colorCelda: #004080; /* Azul oscuro suave */
+    --colorCeldaCompleta: #00264d; /* Azul marino */
+    --colorNumeros: #ffffff; /* Blanco brillante para los números */
+    --colorResalte: #0066cc; /* Azul vibrante con un toque de neón */
+    --colorNumerosResaltados: #80d4ff; /* Azul claro y suave para los números resaltados */
 }

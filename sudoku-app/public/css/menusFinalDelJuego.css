@@ -9,7 +9,7 @@
     padding: 20px;
     background-color: rgb(13, 3, 39);
     border: 2px solid black;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 1px 1px 15px rgba(120, 136, 206, 0.747);
     z-index: 1000;
     text-align: center;
 }
@@ -28,14 +28,14 @@
 .botonFinal{
     color: #ffffff;
     padding: 12px 16px;
-    background-color: #3a387e;
+    background-color: #141258;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
     border: none; 
     width: 100%; 
     text-align: left; 
-    border: thick inset #08010a83;
+    border: thick inset #0a0e3183;
 }
 
 .newGameMenu{
@@ -46,10 +46,10 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #05010f;
-    border: 4px solid rgb(161, 11, 203);
+    background-color: #020313;
+    border: 4px solid rgb(15, 13, 172);
     border-radius: 8px;
-    box-shadow: 0 4px 12px rgb(198, 113, 206);
+    box-shadow: 0 4px 12px rgb(117, 116, 180);
     z-index: 1000;
     padding: 20px;
     gap: 15px;

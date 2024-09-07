@@ -87,16 +87,23 @@ function crearTableroUI(){
             celdaActual = null;
         } else {
             //caso fallo
+            celdaActual.addEventListener("click",borrarNumero)
             celdaActual.classList.add('temblar')
             celdaActual.textContent = numero;
             celdaActual.addEventListener('animationend', () => {
                 celdaActual.classList.remove('temblar');   
-            }, { once: true });
+            }, { once: true });  
             perderVida();
 
 
         }
     }
+
+    function borrarNumero(){
+        this.textContent = '';
+        this.removeEventListener('click', borrarNumero);
+    }
+
 
     function hechaPorPista(celda){
         celdaActual = celda;
@@ -126,7 +133,9 @@ function crearTableroUI(){
         });
         remarcarFilas(filaEnTablero, listaDeCuadros, posHijo);
         remarcarColumnas(columnaTablero, listaDeCuadros, posHijo);
-        remarcarMismoNumero(listaDeCuadros,celdaSeleccionada.textContent);
+        if(celdaSeleccionada.classList.contains("celdaCompleta")){
+            remarcarMismoNumero(listaDeCuadros,celdaSeleccionada.textContent);
+        }       
     }
 
 
@@ -160,7 +169,7 @@ function remarcarMismoNumero(listaDeCuadros,numeroHijo){
     for (let cuadro of listaDeCuadros) {
         for (let j = 0; j < cuadro.children.length; j++) {
             let hijo = cuadro.children[j];
-            if (hijo.textContent == numeroHijo && hijo.textContent != "") {
+            if (hijo.textContent == numeroHijo && hijo.classList.contains('celdaCompleta')) {
                 hijo.classList.add('celda-mismoNumero');
             }
         }

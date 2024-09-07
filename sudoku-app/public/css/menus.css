@@ -1,13 +1,15 @@
 #banner{
-    background-image: url("/Prueba/sudoku-app/assets/banner.png");
     position: absolute;
     display: flex;
     flex-direction: row;
-    background-color: lightblue;
+    background-color: rgb(12, 10, 71);
     width: 100%;
     margin-bottom: 10px;
+    border:outset #cec1d3;
+    border-width: 2px;
+    box-shadow: 0 4px 12px rgb(107, 108, 207);
     justify-content: space-between
-
+    
 
 }
 #menuDespegable{
@@ -22,7 +24,8 @@
     color: white;
     padding: 10px;
     font-size: 16px;
-    border: thick inset #2e1b35;
+    border: thick inset #0a1b3f;
+    box-shadow: 0 4px 12px rgb(107, 108, 207);
     cursor: pointer;
     height: 35px;
     display: flex;
@@ -40,19 +43,20 @@
     min-width: 160px;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
     z-index: 1;
+    border: thick inset #121344;
 }
 
 .menuDesplejado button  {
-    background-image: url("/Prueba/sudoku-app/assets/banner.png");
     color: #ffffff;
     padding: 12px 16px;
-    background-color: #3a387e;
+    background-color: #031553;
+    border: 2px inset #121344;
     padding: 12px 16px;
     text-decoration: none;
-    display: block;
-    border: none; 
+    display: block; 
     width: 100%; 
     text-align: left; 
+    
 }
 
 .menuDesplejado button:hover {
@@ -83,7 +87,8 @@
     color: white;
     padding: 10px;
     font-size: 16px;
-    border: thick inset #2e1b35;
+    border: thick inset #0a1b3f;
+    box-shadow: 0 4px 12px rgb(107, 108, 207);
     cursor: pointer;
     height: 35px;
     display: flex;
@@ -94,5 +99,5 @@
 
 .botonInfo:active {
     transform: translateY(2px);
-    border: thick inset #c876e4;
+    border: thick inset #3759a7;
 }

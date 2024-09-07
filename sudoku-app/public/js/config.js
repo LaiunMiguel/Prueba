@@ -1,5 +1,6 @@
 const menu = document.getElementById("configMenu");
 let coloresPrevios = {};
+const colorMarco  =document.getElementById('colorMarco');
 const colorTablero = document.getElementById('colorTablero');
 const colorCuadros = document.getElementById('colorCuadros');
 const colorCeldas = document.getElementById('colorCeldas');
@@ -7,6 +8,7 @@ const colorCeldasCompletadas = document.getElementById('colorCeldasCompletadas')
 const colorNumeros = document.getElementById('colorNumeros');
 const colorFyC = document.getElementById('colorFyC');
 const colorResalteNumeros = document.getElementById('colorResalteNumeros');
+
 
 colorCeldasCompletadas
 const atajo = getComputedStyle(document.documentElement);
@@ -19,6 +21,11 @@ function cargarConfiguarcion(){
     }
 
     // Asignar eventos de cambio a cada input de color
+    colorMarco.addEventListener('input', (event) => {
+        actualizarColorCSS('--colorMarco', event.target.value);
+    });
+
+
     colorTablero.addEventListener('input', (event) => {
         actualizarColorCSS('--colorTablero', event.target.value);
     });
@@ -52,6 +59,7 @@ function cargarConfiguarcion(){
 function abrirConfiguracion() {
     // Guardar los colores actuales antes de hacer cambios
     coloresPrevios = {
+        marco: atajo.getPropertyValue('--colorMarco'),
         tablero: atajo.getPropertyValue('--colorTablero'),
         cuadros: atajo.getPropertyValue('--colorCuadro'),
         celdas: atajo.getPropertyValue('--colorCelda'),
@@ -60,6 +68,7 @@ function abrirConfiguracion() {
         resaltado: atajo.getPropertyValue('--colorResalte'),
         numerosResaltados: atajo.getPropertyValue('--colorNumerosResaltados')
     };
+    colorMarco.value   = coloresPrevios.marco;
     colorTablero.value = coloresPrevios.tablero;
     colorCuadros.value = coloresPrevios.cuadros;
     colorCeldas.value = coloresPrevios.celdas;
@@ -77,12 +86,13 @@ function guardarMenuConfig (){
 
 function cancelarMenuConfig() {
 
+    estilos.setProperty('--colorMarco', coloresPrevios.marco);
+    estilos.setProperty('--colorTablero', coloresPrevios.tablero);
     estilos.setProperty('--colorCuadro', coloresPrevios.cuadros);
     estilos.setProperty('--colorCelda', coloresPrevios.celdas);
     estilos.setProperty('--colorNumeros', coloresPrevios.numeros);
     estilos.setProperty('--colorResalte', coloresPrevios.resaltado);
     estilos.setProperty('--colorNumerosResaltados', coloresPrevios.numerosResaltados);
-    estilos.setProperty('--colorTablero', coloresPrevios.tablero);
     estilos.setProperty('--colorCeldaCompleta', coloresPrevios.celdasCompletadas);
 
     menu.classList.add('ocultar');
@@ -90,6 +100,7 @@ function cancelarMenuConfig() {
 
 function guardarColoresEnLocalStorage() {
     const colores = {
+        marco: atajo.getPropertyValue('--colorMarco'),
         tablero: atajo.getPropertyValue('--colorTablero'),
         cuadros: atajo.getPropertyValue('--colorCuadro'),
         celdas: atajo.getPropertyValue('--colorCelda'),
@@ -104,6 +115,7 @@ function guardarColoresEnLocalStorage() {
 function cargarColoresDesdeLocalStorage() {
     const colores = JSON.parse(localStorage.getItem('colores'));
     if (colores) {
+        estilos.setProperty('--colorMarco', colores.marco)
         estilos.setProperty('--colorTablero', colores.tablero);
         estilos.setProperty('--colorCuadro', colores.cuadros);
         estilos.setProperty('--colorCelda', colores.celdas);
@@ -113,6 +125,7 @@ function cargarColoresDesdeLocalStorage() {
         estilos.setProperty('--colorNumerosResaltados', colores.numerosResaltados);
 
         // También actualiza los valores de los inputs de color
+        colorMarco.value   = coloresPrevios.marco;
         colorTablero.value = colores.tablero;
         colorCuadros.value = colores.cuadros;
         colorCeldas.value = colores.celdas;
@@ -124,13 +137,14 @@ function cargarColoresDesdeLocalStorage() {
 
 function reiniciarDeFabrica() {
     // Restablecer los colores a los valores predeterminados
-    estilos.setProperty('--colorTablero', '#1c1c1c');
-    estilos.setProperty('--colorCuadro', '#2e2e2e');
-    estilos.setProperty('--colorCelda', '#3a3a3a'); //
-    estilos.setProperty('--colorCeldaCompleta', '#4b3a5d'); 
-    estilos.setProperty('--colorNumeros', '#e8e8e8'); 
-    estilos.setProperty('--colorResalte', '#5c2a8d'); 
-    estilos.setProperty('--colorNumerosResaltados', '#9b7f9f');
+    estilos.setProperty('--colorMarco', '#171c61')
+    estilos.setProperty('--colorTablero', '#001f33'); // Azul muy oscuro
+    estilos.setProperty('--colorCuadro', '#003366'); // Azul profundo
+    estilos.setProperty('--colorCelda', '#004080'); // Azul oscuro suave
+    estilos.setProperty('--colorCeldaCompleta', '#00264d'); // Azul marino
+    estilos.setProperty('--colorNumeros', '#ffffff'); // Blanco brillante para los números
+    estilos.setProperty('--colorResalte', '#0066cc'); // Azul vibrante con un toque de neón
+    estilos.setProperty('--colorNumerosResaltados', '#80d4ff'); // Azul claro y suave para los números resaltados
     
     guardarColoresEnLocalStorage();
 }
