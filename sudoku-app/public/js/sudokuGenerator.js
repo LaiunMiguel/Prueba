@@ -31,23 +31,29 @@ class SudokuGenerator {
 
     
     crearMatrizVacia(tamaño) {
-        // Crea una matriz 2D de tamaño `tamaño x tamaño` llena de ceros
+        // Crea una matriz
         return Array.from({ length: tamaño }, () => Array(tamaño).fill(0));
     }
 
     completarTablero(fila, columna) {
+
+        //caso base 
         if (fila === this.cantCasillas) {
             return true;
         }
-
+        
+        //caso llegado al final de la columna 
         if (columna === this.cantCasillas) {
             return this.completarTablero(fila + 1, 0);
         }
 
+        //caso llegado al final de la fila 
         if (this.tablero[fila][columna] !== 0) {
             return this.completarTablero(fila, columna + 1);
         }
 
+
+        //genero numeros para probar
         let numeros = this.generarNumerosAleatorios();
         for (let num of numeros) {
             if (this.esValido(fila, columna, num)) {
@@ -63,6 +69,8 @@ class SudokuGenerator {
     }
 
     
+
+    //Logica para comprar si lo puedo poner en la fila o el cuadro 
     esValido(fila, columna, numero) {
         return this.puedePonerElNumeroLineas(fila, columna, numero) &&
                this.esValidoCuadro(fila, columna, numero);
@@ -90,6 +98,8 @@ class SudokuGenerator {
         return true;
     }
 
+
+    //Algoritmo Fisher-Yates Shuffle:
     generarNumerosAleatorios() {
         let numeros = Array.from({ length: 9 }, (_, i) => i + 1);
         for (let i = numeros.length - 1; i > 0; i--) {
@@ -99,11 +109,10 @@ class SudokuGenerator {
         return numeros;
     }
 
+
+    //Devuelve el tablero en formato cada cuadro como un lista 
     getTablero() {
         return this.tableroReordenado;
     }
 
-    imprimirTablero() {
-        this.tablero.forEach(fila => console.log(fila.join(" ")));
-    }
 }

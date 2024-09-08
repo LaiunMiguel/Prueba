@@ -37,7 +37,7 @@
 }
 
 .menuDesplejado {
-    display: none; /* Oculto por defecto */
+    display: none;
     position: absolute;
     background-color: #f9f9f9;
     min-width: 160px;
@@ -76,9 +76,9 @@
 }
 
 .botonContainer {
-    display: flex; /* Utiliza Flexbox para el contenedor de los botones */
-    justify-content: space-between; /* Distribuye el espacio entre los botones */
-    align-items: center; /* Alinea los botones verticalmente al centro */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .botonInfo {

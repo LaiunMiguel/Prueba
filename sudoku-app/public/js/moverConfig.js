@@ -1,39 +1,59 @@
+//Script hecho para poder mover el config y el tablero 
+
 document.addEventListener('DOMContentLoaded', () => {
-    const menu = document.querySelector('.configMenu');
+    function initDraggable(element) {
 
-    let isDragging = false;
-    let startX, startY, initialLeft, initialTop;
+        //flag de movimiente 
+        let seEstaMoviendo = false;
 
-    function startDrag(e) {
-        isDragging = true;
-        startX = e.clientX || e.touches[0].clientX;
-        startY = e.clientY || e.touches[0].clientY;
-        initialLeft = parseInt(window.getComputedStyle(menu).left, 10);
-        initialTop = parseInt(window.getComputedStyle(menu).top, 10);
-        document.addEventListener('mousemove', onMouseMove);
-        document.addEventListener('mouseup', onMouseUp);
-        document.addEventListener('touchmove', onMouseMove, { passive: true });
-        document.addEventListener('touchend', onMouseUp);
+        //cordenadas iniciales 
+        let xInicial, yInicial, initialLeft, initialTop;
+
+
+        //se activa al holdDelMouse
+        function startDrag(evento) {
+            seEstaMoviendo = true;
+
+            //cordenadas del touch o mouse 
+            xInicial = evento.clientX || evento.touches[0].clientX;
+            yInicial = evento.clientY || evento.touches[0].clientY;
+            initialLeft = parseInt(window.getComputedStyle(element).left, 10);
+            initialTop = parseInt(window.getComputedStyle(element).top, 10);
+
+            document.addEventListener('mousemove', onMouseMove);
+            document.addEventListener('mouseup', onMouseUp);
+            document.addEventListener('touchmove', onMouseMove, { passive: true });
+            document.addEventListener('touchend', onMouseUp);
+        }
+
+        function onMouseMove(evento) {
+            //setea la posicion del config a donde este el mouse
+            if (!seEstaMoviendo) return;
+            const clientX = evento.clientX || evento.touches[0].clientX;
+            const clientY = evento.clientY || evento.touches[0].clientY;
+
+            //distancia recorrida
+            const dx = clientX - xInicial;
+            const dy = clientY - yInicial;
+            element.style.left = `${initialLeft + dx}px`;
+            element.style.top = `${initialTop + dy}px`;
+        }
+
+        function onMouseUp() {
+            seEstaMoviendo = false;
+            document.removeEventListener('mousemove', onMouseMove);
+            document.removeEventListener('mouseup', onMouseUp);
+            document.removeEventListener('touchmove', onMouseMove);
+            document.removeEventListener('touchend', onMouseUp);
+        }
+
+        //eventListeners
+        element.addEventListener('mousedown', startDrag);
+        element.addEventListener('touchstart', startDrag, { passive: true });
     }
 
-    function onMouseMove(e) {
-        if (!isDragging) return;
-        const clientX = e.clientX || e.touches[0].clientX;
-        const clientY = e.clientY || e.touches[0].clientY;
-        const dx = clientX - startX;
-        const dy = clientY - startY;
-        menu.style.left = `${initialLeft + dx}px`;
-        menu.style.top = `${initialTop + dy}px`;
-    }
-
-    function onMouseUp() {
-        isDragging = false;
-        document.removeEventListener('mousemove', onMouseMove);
-        document.removeEventListener('mouseup', onMouseUp);
-        document.removeEventListener('touchmove', onMouseMove);
-        document.removeEventListener('touchend', onMouseUp);
-    }
-
-    menu.addEventListener('mousedown', startDrag);
-    menu.addEventListener('touchstart', startDrag, { passive: true });
+    // Inicializa el elemento `.configMenu` como movible
+    const configMenu = document.querySelector('.configMenu');
+    initDraggable(configMenu);
+    initDraggable(juego);
 });

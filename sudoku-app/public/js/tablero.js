@@ -21,7 +21,10 @@ class Tablero{
         }
     }
 
+
+    //Se encarga de la dificultad
     removerVisibilidadDe(cantidadDeCeldasSinNumero) {
+        //las guardo en un set para facilitar que no le saque a la misma casilla
         const celdaRemovidas = new Set();
 
         while (celdaRemovidas.size < cantidadDeCeldasSinNumero) {
@@ -38,10 +41,6 @@ class Tablero{
         this.tablero[numero].noVisible();
     }
 
-    hacerVisible(numeroDeLaCelda){
-        this.tablero[numeroDeLaCelda].hacerVisible();
-    }
-
     getCeldaNumero(numero){
         return this.tablero[numero];
     }
@@ -50,9 +49,9 @@ class Tablero{
         return this.tablero[celdaNumero].sosEsteNumero(numero)
     }
 
+    //debuggin 
     imprimirTablero(){
          this.generador.imprimirTablero();
-         console.log(this.tablero[5]);
     }
 
 }     
@@ -73,17 +72,8 @@ class Celda {
         return this.esVisible;
     }
 
-    hacerVisible(){
-        this.esVisible = true;
-    }
-
     getValor(){
         return this.valor;
-    }
-
-    sosEsteNumero(numero){
-        
-        return this.valor == numero;
     }
 
 }

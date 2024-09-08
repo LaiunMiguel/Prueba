@@ -1,26 +1,35 @@
 let teclasVeces;
 
+
+//Script para remover las teclas del teclado virtual 
+
 function iniciarConteo(){
     teclasVeces = [];
 
-    for (let i = 0; i < 9; i++) {  // Si los números en las celdas van de 1 a 9
+    for (let i = 0; i < 9; i++) {  
         teclasVeces[i] = 0;
     }
 
     todasLasCeldas =  document.querySelectorAll('.celda')
    
-    for (let index = 0; index < todasLasCeldas.length; index++) {
-        const element = todasLasCeldas[index];
+
+    for (let i = 0; i < todasLasCeldas.length; i++) {
+        const element = todasLasCeldas[i];
         let numero = parseInt(element.textContent); // Convierte el textContent en número
         
-        // Solo si el número es válido
-        if (!isNaN(numero) && numero >= 1 && numero <= 9) {
-            teclasVeces[numero - 1]++;  // Incrementa el contador correspondiente a ese número
+        //Texteo que es un numero , siempre va ser de un solo dijito por la logica 
+        if (!isNaN(numero)) {
+            aumentarContador(numero); // Incrementa el contador correspondiente a ese número
         }
     }
 }
 
+
+//cada vez que completa una casilla se llama esta funcion
 function aumentarContador(numero){
-    teclasVeces[numero - 1]++;
-    removerTeclas();
+    let numeroPrueba = teclasVeces[numero - 1]++;
+    if(numeroPrueba == 8){
+        removerTecla(numero);
+    }
+    
 }

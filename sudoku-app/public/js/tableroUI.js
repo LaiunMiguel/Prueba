@@ -4,10 +4,13 @@ let numeroCasilla;
 const juego   = document.getElementById('juegoTablero')
 const tablero = document.getElementById('tablero');
 
+
+
+//Creacion de Tablero
 function crearTableroUI(){
 
         numeroCasilla = 0;
-        juego.style.display = 'block';
+        juego.classList.remove('invisibilizar')
         tablero.innerHTML = '';
         for (let i = 0; i < 9; i++) {
                 cuadro = document.createElement('div');
@@ -17,29 +20,33 @@ function crearTableroUI(){
                 tablero.append(cuadro);            
         }
     }
-    //Crea las casillas y a cada una le agrega un eventListener que cuando se cliqueak
+
+    //Crea las casillas 
     function crearCasillas(cuadro){
         for (let j = 0; j < 9 ; j++) {
             celda = document.createElement('div');
             celda.className = 'celda';
             celda.id = 'celda' + numeroCasilla;
             celda.dataset.posCuadro = j;        // Almacena el la pos en su cuadro para resaltar la fila y columna
-            celda.dataset.numero = numeroCasilla; // Almacena el número para comprobaciones
+            celda.dataset.numeroValido = tableroComportamiento.getCeldaNumero(numeroCasilla).getValor(); //Guardo el valor del numero que es la casilla privadamente 
             configurarCelda(celda);          
             cuadro.append(celda);
             
         }
     }
 
+
+    //Configura la tecla , si esta completa o es para completar
     function configurarCelda(celda) {
     
-        let celdaDelTableroBack = tableroComportamiento.getCeldaNumero(numeroCasilla);   
-        let boolean = celdaDelTableroBack.isVisible();
+        //Ve si la celda esta completa o hay que completar
+        let esVisibleLaCelda = tableroComportamiento.getCeldaNumero(numeroCasilla).isVisible();   
 
-
+        //todas las celdas son seleccionables
         celda.addEventListener("click", seleccionable);
-        if(boolean){
-            celda.textContent = celdaDelTableroBack.getValor();
+
+        if(esVisibleLaCelda){
+            celda.textContent = celda.dataset.numeroValido;
             celda.classList.add("celdaCompleta");
         }
         else {
@@ -50,55 +57,64 @@ function crearTableroUI(){
         numeroCasilla++;
     }
 
-
+    //Evente listener por si usas el teclado fisico 
     function editable() {
-        if (celdaActual) {
-            document.removeEventListener('keydown', esperarTecla);
-        }
 
+        //guarda la celda temporalmente
         celdaActual = this;
         document.addEventListener('keydown', esperarTecla);
     }
 
     function esperarTecla(event) {
-        estaBienLaTecla(event.key);
-        
+        //me fijo que la tecla este entre el 1-9 
+        if(/^[1-9]$/.test(event.key)){
+            estaBienLaTecla(event.key);
+        } 
     }
 
 
     
     function estaBienLaTecla(numero) {
-
-        let celdaNumero = celdaActual.dataset.numero
-
-        let comprobacion = tableroComportamiento.estaBienParaElNumero(celdaNumero,numero);
-
-        if (comprobacion) {
+        
+        if (celdaActual.dataset.numeroValido == numero) {
             //caso acierto
+            
             celdaActual.textContent = numero;
+            //Saco indicadores de celdaIncompleta
             celdaActual.classList.remove('celdaIncompleta');
             celdaActual.removeEventListener('click',editable);
-            celdaActual.classList.add('temblar')
+
+            //Remuevo el eventListener
             document.removeEventListener('keydown', esperarTecla);
+
+            //animacion
+            celdaActual.classList.add('temblar')
             celdaActual.classList.add("celdaCompleta");
+            
             aumentarContadorDeVictoria();
             aumentarContador(numero)
-            tableroComportamiento.hacerVisible(celdaNumero);
+
+          //la remuevo como celda actual para que no moleste al teclado virtual
             celdaActual = null;
         } else {
+
             //caso fallo
+
             celdaActual.addEventListener("click",borrarNumero)
-            celdaActual.classList.add('temblar')
             celdaActual.textContent = numero;
+            celdaActual.classList.add('temblar')
+
+            //remuevo la animacion para que se aplique de vuelta
             celdaActual.addEventListener('animationend', () => {
                 celdaActual.classList.remove('temblar');   
             }, { once: true });  
+
             perderVida();
-
-
         }
     }
 
+
+    //poder borrar el error si el usuario quiere
     function borrarNumero(){
         this.textContent = '';
         this.removeEventListener('click', borrarNumero);
@@ -106,19 +122,23 @@ function crearTableroUI(){
 
 
     function hechaPorPista(celda){
+        //marco la casilla como la actual
         celdaActual = celda;
-        celdaDelTableroBack = tableroComportamiento.getCeldaNumero(celda.dataset.numero);   
-        estaBienLaTecla(celdaDelTableroBack.getValor())
+        estaBienLaTecla(celda.dataset.numeroValido);
     }
 
     function seleccionable(event) {
         const celdaSeleccionada = event.target;
+
+        //me traigo el cuadro en el que esta la casilla
         const padre = celdaSeleccionada.parentElement;
 
         const posPadre = parseInt(padre.dataset.posTablero);  // Posición del cuadro (0-8)
         const posHijo = parseInt(celdaSeleccionada.dataset.posCuadro);  // Posición dentro del cuadro (0-8)
     
+        //divido las filas y columnas en 0,1,2  
         const filaEnTablero = Math.floor(posPadre / 3) * 3; 
+
         const columnaTablero = posPadre % 3;             
    
         const listaDeCuadros = document.querySelectorAll('.cuadro');
@@ -131,15 +151,19 @@ function crearTableroUI(){
                 celda.classList.remove('celda-mismoNumero');
             });
         });
-        remarcarFilas(filaEnTablero, listaDeCuadros, posHijo);
-        remarcarColumnas(columnaTablero, listaDeCuadros, posHijo);
+
+        //resalto
+        resaltarFilas(filaEnTablero, listaDeCuadros, posHijo);
+        resaltarColumnas(columnaTablero, listaDeCuadros, posHijo);
+
+        //codicion asi no resalta numeros de errores al borrarlos
         if(celdaSeleccionada.classList.contains("celdaCompleta")){
-            remarcarMismoNumero(listaDeCuadros,celdaSeleccionada.textContent);
+            resaltarMismosNumeros(listaDeCuadros,celdaSeleccionada.textContent);
         }       
     }
 
-
-function remarcarFilas(filaEnTablero, listaDeCuadros, posHijo) {
+// Funcion auxiliar me agrega la clase celda-resaltada a los tres cuadros de la fila y a sus hijos 
+function resaltarFilas(filaEnTablero, listaDeCuadros, posHijo) {
     for (let i = filaEnTablero; i < filaEnTablero + 3; i++) {
         cuadro = listaDeCuadros[i];
 
@@ -152,7 +176,8 @@ function remarcarFilas(filaEnTablero, listaDeCuadros, posHijo) {
     }
 }
 
-function remarcarColumnas(columnaTablero, listaDeCuadros, posHijo) {
+// Lo mismo para las columnas
+function resaltarColumnas(columnaTablero, listaDeCuadros, posHijo) {
     for (let i = columnaTablero; i < 9; i += 3) {
         cuadro = listaDeCuadros[i];
 
@@ -165,7 +190,7 @@ function remarcarColumnas(columnaTablero, listaDeCuadros, posHijo) {
     }
 }
 
-function remarcarMismoNumero(listaDeCuadros,numeroHijo){
+function resaltarMismosNumeros(listaDeCuadros,numeroHijo){
     for (let cuadro of listaDeCuadros) {
         for (let j = 0; j < cuadro.children.length; j++) {
             let hijo = cuadro.children[j];
@@ -176,6 +201,8 @@ function remarcarMismoNumero(listaDeCuadros,numeroHijo){
     }
 }
 
+
+// Funciones auxiliares para saber si estan en la misma Col o Fila
     function estanEnLaMismaColumna(pos1,pos2){
         col1 = pos1 % 3 
         col2 = pos2 % 3 

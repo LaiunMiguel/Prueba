@@ -15,7 +15,7 @@
 
     <style>
         body{
-            background-image: url("/Prueba/sudoku-app/assets/background.jpg");
+            background-image: url("/sudoku-app/assets/background.jpg");
             background-color: #d8d4b6;
             display: flex;
             justify-content: center;
@@ -96,14 +96,15 @@
                     <button class="botonInfo" onclick="iniciarTablero(4)">Muy Difícil</button>
     </div>
 
-    <div id="terminoLaPartida" class="mensaje ocultar">
-        <p id="mensajeFinal"></p>
-        <div class="contBotones">
-            <button class="botonFinal" onclick="nuevoJuego()">Nuevo Juego</button>
-            <button class="botonFinal" onclick="verTablero()">Ver tablero</button>
-        </div>
-    </div>
-    <div id = juegoTablero>
+    <div id = juegoTablero class="invisibilizar">
+
+            <div id="terminoLaPartida" class="mensaje ocultar">
+                <p id="mensajeFinal"></p>
+                <div class="contBotones">
+                    <button class="botonFinal" onclick="nuevoJuego()">Nuevo Juego</button>
+                    <button class="botonFinal" onclick="verTablero()">Ver tablero</button>
+                </div>
+            </div>
             <div id= contenedorInfo>
                 <div id = vidas class="conenedorVidas">
                     <span>Vidas: </span>
@@ -151,7 +152,11 @@
 
 
 <script>
-   // cargarColoresDesdeLocalStorage();
+
+
+    //dificultad es -15 casillas visibles por nivel
+
+   cargarColoresDesdeLocalStorage();
 
     let tableroComportamiento;
     let minutos;
@@ -159,23 +164,34 @@
     let vidas;
 
     function iniciarTablero(nivel) {
+
+        //inicio
         minutos  = 0;
         segundos = 0;
         vidas =3;
+        //detiene un tem de la partida anterior si se jugo
         detenerTemp();
+        //tablero nuevo partida nueva
         tableroComportamiento = new Tablero(nivel);
-        iniciarTemporizador();
+
+        //temporizardor
+        
+
+        //Incio de UI
         crearTableroUI();
-        iniciarConteo();
         iniciarTeclado();
-        removerTeclas();
+        iniciarConteo();
+        iniciarTemporizador();
         actualizarVidas();
-        casillasCompletas = 81 - (nivel*15);
         cargarConfiguarcion();
         habilitarGuardado()
+
+        //dificultad es -15 casillas visibles por nivel
+        casillasCompletas = 81 - (nivel*15);
         cerrarMenu()
     }
 
+    
     function recargarPartida(){
         detenerTemp();
         tableroComportamiento = cargarPartida();
@@ -183,9 +199,8 @@
         cargarVidas();
         iniciarTemporizador();
         crearTableroUI();
-        iniciarConteo();
         iniciarTeclado();
-        removerTeclas();
+        iniciarConteo();
         actualizarVidas();
         casillasCompletas = cargarCasillasCompletas()
         cargarConfiguarcion();

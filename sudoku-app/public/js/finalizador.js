@@ -1,6 +1,7 @@
 let terminoLaPartida;
 let mensajeFinal;
 
+//Se acabo la partida
 function finalizar(){
 
     terminoLaPartida = document.getElementById("terminoLaPartida");
@@ -12,6 +13,7 @@ function finalizar(){
         modoGanador();
     }
     else{
+        //lo seteo para que que no salte la victoria al apretar pistas me gusta dejar las pistas abiertas al final 
         casillasCompletas = 0;
         modoPerder() ;
     }
@@ -32,7 +34,7 @@ function modoPerder() {
         tablero.classList.add('hinge');
         terminoLaPartida.classList.remove('ocultar');   
 
-        // Eliminar para que el  teclado ya no tenga efecto 
+        // Eliminar para que el  teclado ya no tenga efecto en el modo ganador no hace falta ya que se elimina al acertar el numero
         document.removeEventListener('keydown', esperarTecla);
 
     }
@@ -42,7 +44,7 @@ function modoPerder() {
         //remuevo el hinge , oculto el div de finalizacion y hago aparecer el de iniciar una nueva partida
         tablero.classList.remove('tada');
         tablero.classList.remove('hinge');
-        juego.style.display = 'none';
+        juego.classList.add('invisibilizar');
         terminoLaPartida.classList.add('ocultar');   
         menuFinDelJuegoNuevaPartida.classList.remove('ocultar');
         
