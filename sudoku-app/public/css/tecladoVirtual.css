@@ -21,8 +21,8 @@
 
 .tecla-numero {
     position: relative;
-    width: 30px;
-    height: 30px;
+    width: 35px;
+    height: 35px;
     margin: 5px;
     background-color: rgba(0, 0, 0, 0.685);
     color: white;
@@ -32,4 +32,20 @@
     font-size: 20px;
     font-weight: bold;
     cursor: pointer;
+}
+
+.nota {
+    box-sizing: border-box;
+    visibility: hidden;
+    margin: 0 auto;
+    text-align: center;
+    color: var(--colorNumeros);
+    font-size: 10px;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.5s ease;
+}
+
+.nota.visible {
+    visibility: visible;
+    opacity: 100;
 }

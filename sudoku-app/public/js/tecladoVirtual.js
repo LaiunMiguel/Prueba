@@ -32,7 +32,7 @@ function configurarTecla(tecla){
     tecla.addEventListener('click', () => {
             // para que no se pueda seguir apretando cuando es nill o termino la partida
             if (celdaActual && vidas > 0) {
-                estaBienLaTecla(tecla.dataset.numero);
+                modoTeclado(tecla.dataset.numero);
             }
         });
     }

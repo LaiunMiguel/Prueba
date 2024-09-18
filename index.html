@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="sudoku-app/public/css/tecladoVirtual.css">
     <link rel="stylesheet" href="sudoku-app/public/css/menusFinalDelJuego.css">
     <link rel="stylesheet" href="sudoku-app/public/css/menuConfig.css">
+
     
     <title>Sudoku</title>
 
@@ -48,6 +49,8 @@
         <div>
             <button id="botonReinicarConfiguraciones" class="botonInfo" onclick="reiniciarDeFabrica()">Reiniciar Colores</button>
         </div>  
+
+        
     </div>
 
     <div id="configMenu" class="configMenu ocultar "> 
@@ -106,12 +109,15 @@
                 </div>
             </div>
             <div id= contenedorInfo>
-                <div id = vidas class="conenedorVidas">
+                <div id = vidas class="contenedorVidas">
                     <span>Vidas: </span>
                 </div>
-                <button id="bontonPista"  onclick="pedirPista()">Pista</button>
-                <div id = timer class="conenedorTiempo">
-                    <span id="tiempo">0:00</span>
+                <div id=contenedorBotones>
+                    <button id="bontonPista" class="botonContenedor" onclick="pedirPista()">Pista</button>
+                    <button id="bontonModo" class="botonContenedor" onclick="toogleModo()">Notas</button>
+                </div>
+                    <div id = timer class="contenedorTiempo">
+                        <span id="tiempo">0:00</span>
                 </div>
             </div>
             <div id = tablero></div>
@@ -139,6 +145,9 @@
     const menuNuevoJuego = document.getElementById('menuDespegable');
     const menuFinDelJuegoNuevaPartida = document.getElementById('menuFinDelJuegoNuevaPartida');
 
+    const notas = document.getElementById('bontonModo');
+    let modoNotas = false;
+
     function abrirMenu(){
         menuNuevoJuego.classList.add('show-menu');
     }
@@ -148,6 +157,35 @@
         menuFinDelJuegoNuevaPartida.classList.add('ocultar');
 
     }
+
+        
+    
+
+
+
+    function toogleModo(){
+        notas.classList.toggle('activo');
+        if(modoNotas){
+            return modoNotas = false
+        }
+        modoNotas = true
+    }
+
+    function modoTeclado(numero){
+
+
+        if(modoNotas){
+            notaToggle(numero);
+        }
+        else{
+            estaBienLaTecla(numero);
+        } 
+    }
+
+
+
+
+
 </script>
 
 

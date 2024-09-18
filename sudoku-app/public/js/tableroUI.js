@@ -29,10 +29,22 @@ function crearTableroUI(){
             celda.id = 'celda' + numeroCasilla;
             celda.dataset.posCuadro = j;        // Almacena el la pos en su cuadro para resaltar la fila y columna
             celda.dataset.numeroValido = tableroComportamiento.getCeldaNumero(numeroCasilla).getValor(); //Guardo el valor del numero que es la casilla privadamente 
-            configurarCelda(celda);          
+            configurarCelda(celda);     
             cuadro.append(celda);
             
         }
+    }
+
+    function crearNotas(){
+        for (let j = 0; j < 9 ; j++) {
+            nota = document.createElement('div');
+            nota.className = 'nota';
+            nota.textContent = j+1;
+            nota.dataset.posCelda = j;    // Almacena el la pos en su cuadro para resaltar la fila y columna 
+            celdaActual.classList.add("celdaConNotas");
+            celdaActual.append(nota);         
+        }
+        
     }
 
 
@@ -61,14 +73,14 @@ function crearTableroUI(){
     function editable() {
 
         //guarda la celda temporalmente
-        celdaActual = this;
+        celdaActual = this;   
         document.addEventListener('keydown', esperarTecla);
     }
 
     function esperarTecla(event) {
         //me fijo que la tecla este entre el 1-9 
         if(/^[1-9]$/.test(event.key)){
-            estaBienLaTecla(event.key);
+            modoTeclado(event.key);
         } 
     }
 
@@ -76,6 +88,8 @@ function crearTableroUI(){
     
     function estaBienLaTecla(numero) {
         
+        celdaActual.classList.remove('celdaConNotas');
+
         if (celdaActual.dataset.numeroValido == numero) {
             //caso acierto
             
@@ -111,6 +125,28 @@ function crearTableroUI(){
 
             perderVida();
         }
+    }
+
+
+
+    function notaToggle(numero) {
+       
+        if (!celdaActual) return;
+
+        let nota = celdaActual.children[numero-1];
+
+        if(!nota){
+            celdaActual.textContent = "";
+            crearNotas();
+            nota = celdaActual.children[numero-1];
+            
+        }
+        
+        nota.classList.toggle('visible');
+
+        
+        
+
     }
 
 
