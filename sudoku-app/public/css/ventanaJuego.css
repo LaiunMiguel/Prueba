@@ -93,7 +93,7 @@
 
     width: 25px; /* Ancho de cada cuadro del sprite */
     height: 25px; /* Altura de cada cuadro del sprite */
-    background-image: url("Prueba/sudoku-app/assets/corazones.png");
+    background-image: url("Sudoku_Web/sudoku-app/assets/corazones.png");
     filter: contrast(100);
     background-repeat: no-repeat;
     background-position: 0 0; /* Posición inicial del fondo */
