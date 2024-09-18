@@ -18,12 +18,13 @@
     <style>
         body{
             background-image: url("/Prueba/sudoku-app/assets/background.jpg");
-            background-color: #d8d4b6;
+            background-color: #3f2c83;
             display: flex;
             justify-content: center;
             background-repeat: repeat;
             background-size: 35%;
             background-position: center; 
+            user-select: none;
               
         }
    
@@ -45,13 +46,7 @@
             <button id="botonGuardar" class="botonInfo" onclick="guardarPartida()">Guardar</button>   
             <button id="botonCarga" class="botonInfo" onclick="recargarPartida()">Cargar</button>   
             <button class="botonInfo" onclick="abrirConfiguracion()">Configurar</button>   
-        </div>   
-        
-        <div>
-            <button id="botonReinicarConfiguraciones" class="botonInfo" onclick="reiniciarDeFabrica()">Reiniciar Colores</button>
-        </div>  
-
-        
+        </div>    
     </div>
 
     <div id="configMenu" class="configMenu ocultar "> 
@@ -86,7 +81,9 @@
         <div class="config">
             <div class="textConfig">Resalte de Numeros</div>
             <input type="color" class="configColor" id="colorResalteNumeros">
-        </div> 
+        </div>
+        
+        <button id="botonReinicarConfiguraciones" class="botonConfig" onclick="reiniciarDeFabrica()">Colores Originales</button>
         <div class="divBotones">
             <button class= "botonConfig" onclick="guardarMenuConfig()">Guardar</button>
             <button class= "botonConfig" onclick="cancelarMenuConfig()">Cancelar</button>

@@ -146,5 +146,12 @@ function reiniciarDeFabrica() {
     estilos.setProperty('--colorResalte', '#0066cc'); 
     estilos.setProperty('--colorNumerosResaltados', '#80d4ff'); 
     
+    colorMarco.value   = coloresPrevios.marco;
+    colorTablero.value = colores.tablero;
+    colorCuadros.value = colores.cuadros;
+    colorCeldas.value = colores.celdas;
+    colorNumeros.value = colores.numeros;
+    colorFyC.value = colores.resaltado;
+    colorResalteNumeros.value = colores.numerosResaltados;
     guardarColoresEnLocalStorage();
 }
