@@ -76,7 +76,9 @@ function abrirConfiguracion() {
     colorNumeros.value = coloresPrevios.numeros;
     colorFyC.value = coloresPrevios.resaltado;
     colorResalteNumeros.value = coloresPrevios.numerosResaltados;
-    menu.classList.remove('ocultar');
+    if(enPartida){
+        menu.classList.remove('ocultar');
+    }
 }
 
 function guardarMenuConfig (){

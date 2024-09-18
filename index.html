@@ -45,7 +45,7 @@
                 </div>
             </div>
             <button id="botonGuardar" class="botonInfo" onclick="guardarPartida()">Guardar</button>   
-            <button id="botonCarga" class="botonInfo" onclick="recargarPartida()">Cargar</button>   
+            <button id="botonCarga" class="botonInfo" onclick="cargarSiSePuede()">Cargar</button>   
             <button class="botonInfo" onclick="abrirConfiguracion()">Configurar</button>   
         </div>    
     </div>
@@ -188,12 +188,13 @@
    cargarColoresDesdeLocalStorage();
 
     let tableroComportamiento;
+    let enPartida = false;
     let minutos;
     let segundos;
     let vidas;
 
     function iniciarTablero(nivel) {
-
+        enPartida=true
         //inicio
         minutos  = 0;
         segundos = 0;
@@ -220,10 +221,17 @@
         cerrarMenu()
     }
 
+
+    function cargarSiSePuede(){
+        tableroComportamiento = cargarPartida();
+        if(tableroComportamiento){
+            recargarPartida()
+        }
+    }
     
     function recargarPartida(){
+        enPartida=true
         detenerTemp();
-        tableroComportamiento = cargarPartida();
         cargarTemporizador();
         cargarVidas();
         iniciarTemporizador();

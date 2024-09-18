@@ -42,6 +42,7 @@ function modoPerder() {
 
     function nuevoJuego() {
         //remuevo el hinge , oculto el div de finalizacion y hago aparecer el de iniciar una nueva partida
+        enPartida = false
         tablero.classList.remove('tada');
         tablero.classList.remove('hinge');
         juego.classList.add('invisibilizar');
