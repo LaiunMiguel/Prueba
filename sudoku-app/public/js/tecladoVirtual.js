@@ -30,7 +30,7 @@ function crearTeclas(contenedorNumeros){
 function configurarTecla(tecla){
     tecla.textContent = tecla.dataset.numero;
     tecla.addEventListener('click', () => {
-            // para que no se pueda seguir apretando cuando es nill o termino la partida
+            // para que no se pueda seguir apretando cuando es null o termino la partida
             if (celdaActual && vidas > 0) {
                 modoTeclado(tecla.dataset.numero);
             }

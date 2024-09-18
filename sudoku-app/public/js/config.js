@@ -138,13 +138,13 @@ function cargarColoresDesdeLocalStorage() {
 function reiniciarDeFabrica() {
     // Restablecer los colores a los valores predeterminados
     estilos.setProperty('--colorMarco', '#171c61')
-    estilos.setProperty('--colorTablero', '#001f33'); // Azul muy oscuro
-    estilos.setProperty('--colorCuadro', '#003366'); // Azul profundo
-    estilos.setProperty('--colorCelda', '#004080'); // Azul oscuro suave
-    estilos.setProperty('--colorCeldaCompleta', '#00264d'); // Azul marino
-    estilos.setProperty('--colorNumeros', '#ffffff'); // Blanco brillante para los números
-    estilos.setProperty('--colorResalte', '#0066cc'); // Azul vibrante con un toque de neón
-    estilos.setProperty('--colorNumerosResaltados', '#80d4ff'); // Azul claro y suave para los números resaltados
+    estilos.setProperty('--colorTablero', '#001f33');
+    estilos.setProperty('--colorCuadro', '#003366'); 
+    estilos.setProperty('--colorCelda', '#004080'); 
+    estilos.setProperty('--colorCeldaCompleta', '#00264d'); 
+    estilos.setProperty('--colorNumeros', '#ffffff');
+    estilos.setProperty('--colorResalte', '#0066cc'); 
+    estilos.setProperty('--colorNumerosResaltados', '#80d4ff'); 
     
     guardarColoresEnLocalStorage();
 }

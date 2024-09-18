@@ -3,6 +3,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="sudoku-app/assets/icono.jpg" type="image/x-icon">
     <link rel="stylesheet" href="sudoku-app/public/css/root.css">
     <link rel="stylesheet" href="sudoku-app/public/css/animaciones.css">
     <link rel="stylesheet" href="sudoku-app/public/css/menus.css">
@@ -33,7 +34,7 @@
     <div id="banner">
         <div style="display: flex; flex-direction: row";>
             <div id="menuDespegable">
-                <button class="menuDespegable-boton" onclick="abrirMenu()" >Nuevo Juego</button>
+                <button class="menuDespegable-boton" onclick="toggleMenu()" >Nuevo Juego</button>
                 <div class="menuDesplejado">
                     <button class="dificultad" onclick="iniciarTablero(1)">Fácil</button>
                     <button class="dificultad" onclick="iniciarTablero(2)">Medio</button>
@@ -41,9 +42,9 @@
                     <button class="dificultad" onclick="iniciarTablero(4)">Muy Difícil</button>
                 </div>
             </div>
-            <button id="botonGuardar" class="botonInfo" onclick="guardarPartida()">Guardar Partida</button>   
-            <button id="botonCarga" class="botonInfo" onclick="recargarPartida()">Cargar Partida</button>   
-            <button class="botonInfo" onclick="abrirConfiguracion()">Configurar Colores</button>   
+            <button id="botonGuardar" class="botonInfo" onclick="guardarPartida()">Guardar</button>   
+            <button id="botonCarga" class="botonInfo" onclick="recargarPartida()">Cargar</button>   
+            <button class="botonInfo" onclick="abrirConfiguracion()">Configurar</button>   
         </div>   
         
         <div>
@@ -113,8 +114,8 @@
                     <span>Vidas: </span>
                 </div>
                 <div id=contenedorBotones>
-                    <button id="bontonPista" class="botonContenedor" onclick="pedirPista()">Pista</button>
-                    <button id="bontonModo" class="botonContenedor" onclick="toogleModo()">Notas</button>
+                    <button id="botonPista" class="botonContenedor" onclick="pedirPista()">Pista</button>
+                    <button id="botonModo" class="botonContenedor" onclick="toggleModo()">Notas</button>
                 </div>
                     <div id = timer class="contenedorTiempo">
                         <span id="tiempo">0:00</span>
@@ -145,11 +146,11 @@
     const menuNuevoJuego = document.getElementById('menuDespegable');
     const menuFinDelJuegoNuevaPartida = document.getElementById('menuFinDelJuegoNuevaPartida');
 
-    const notas = document.getElementById('bontonModo');
+    const notas = document.getElementById('botonModo');
     let modoNotas = false;
 
-    function abrirMenu(){
-        menuNuevoJuego.classList.add('show-menu');
+    function toggleMenu(){
+        menuNuevoJuego.classList.toggle('show-menu');
     }
 
     function cerrarMenu(){
@@ -158,17 +159,9 @@
 
     }
 
-        
-    
-
-
-
-    function toogleModo(){
+    function toggleModo(){
         notas.classList.toggle('activo');
-        if(modoNotas){
-            return modoNotas = false
-        }
-        modoNotas = true
+        modoNotas = !modoNotas;
     }
 
     function modoTeclado(numero){

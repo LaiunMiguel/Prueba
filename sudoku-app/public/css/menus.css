@@ -3,14 +3,12 @@
     display: flex;
     flex-direction: row;
     background-color: rgb(12, 10, 71);
-    width: 100%;
-    margin-bottom: 10px;
-    border:outset #cec1d3;
-    border-width: 2px;
-    box-shadow: 0 4px 12px rgb(107, 108, 207);
+    width: fit-content;
+    padding: 0px 10px;
+    border: thick double #4e66ec;   
+    box-shadow: 1px 1px 15px rgb(102, 121, 207);
     justify-content: space-between
-    
-
+  
 }
 #menuDespegable{
     position: relative;
@@ -41,16 +39,15 @@
     position: absolute;
     background-color: #f9f9f9;
     min-width: 160px;
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
     z-index: 1;
-    border: thick inset #121344;
 }
 
 .menuDesplejado button  {
     color: #ffffff;
     padding: 12px 16px;
     background-color: #031553;
-    border: 2px inset #121344;
+    border: thick double #4e66ec;   
+    box-shadow: 1px 1px 15px rgb(102, 121, 207);
     padding: 12px 16px;
     text-decoration: none;
     display: block; 
@@ -60,11 +57,14 @@
 }
 
 .menuDesplejado button:hover {
-    filter: invert(25%) saturate(1%);
+    border: thick double #ec4e4e;   
+    box-shadow: 1px 1px 15px rgb(207, 102, 102);
 }
 
 .menuDesplejado button:active{
-    filter: invert(50%) saturate(1%);
+    background-color: #963a3a;
+    border: thick double #ec4e4e;   
+    box-shadow: 1px 1px 15px rgb(207, 102, 102);
 }
 
 #menuDespegable .menuDesplejado {

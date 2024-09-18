@@ -60,6 +60,7 @@ function crearTableroUI(){
         if(esVisibleLaCelda){
             celda.textContent = celda.dataset.numeroValido;
             celda.classList.add("celdaCompleta");
+            celda.addEventListener("click", noEditable)
         }
         else {
             celda.classList.add("celdaIncompleta")
@@ -84,6 +85,13 @@ function crearTableroUI(){
         } 
     }
 
+    function noEditable(){
+
+        //borro la seleccion de la anterior celda para evitar problemas
+        celdaActual = null;
+        document.removeEventListener('keydown', esperarTecla);
+    }
+
 
     
     function estaBienLaTecla(numero) {
@@ -98,9 +106,14 @@ function crearTableroUI(){
             celdaActual.classList.remove('celdaIncompleta');
             celdaActual.removeEventListener('click',editable);
 
-            //Remuevo el eventListener
+            //Remuevo el eventListener activo
             document.removeEventListener('keydown', esperarTecla);
 
+            //borro las notas del mismo numero 
+            //funcion lambda para usarla de wrapper ya que solo recibe celda de doEnFilasYColumas y necesito el numero
+            const wrapperNota = celda => borrarNota(celda, numero);
+            doEnFilasYColumnas(celdaActual,wrapperNota)
+            
             //animacion
             celdaActual.classList.add('temblar')
             celdaActual.classList.add("celdaCompleta");
@@ -128,11 +141,8 @@ function crearTableroUI(){
     }
 
 
-
+    // funcion para las notas que puede poner el usuario en la casilla
     function notaToggle(numero) {
-       
-        if (!celdaActual) return;
-
         let nota = celdaActual.children[numero-1];
 
         if(!nota){
@@ -141,13 +151,20 @@ function crearTableroUI(){
             nota = celdaActual.children[numero-1];
             
         }
-        
-        nota.classList.toggle('visible');
-
-        
-        
-
+        nota.classList.toggle('visible'); 
     }
+
+
+    //borra la nota de un numero que ya se puso en esta fila o columna 
+    function borrarNota(celda,numero){
+
+        let nota = celda.children[numero-1];
+
+        if(nota){
+            nota.classList.remove('visible'); 
+        }
+    }
+
 
 
     //poder borrar el error si el usuario quiere
@@ -160,11 +177,14 @@ function crearTableroUI(){
     function hechaPorPista(celda){
         //marco la casilla como la actual
         celdaActual = celda;
+        //un poco de brute force al hacerlo asi
         estaBienLaTecla(celda.dataset.numeroValido);
     }
 
-    function seleccionable(event) {
-        const celdaSeleccionada = event.target;
+
+    //funcion en el que a cada celda de la misma columna y fila le aplica la funcion pasada por parametro
+    function doEnFilasYColumnas(celda,f){
+        const celdaSeleccionada = celda;
 
         //me traigo el cuadro en el que esta la casilla
         const padre = celdaSeleccionada.parentElement;
@@ -179,6 +199,45 @@ function crearTableroUI(){
    
         const listaDeCuadros = document.querySelectorAll('.cuadro');
 
+        doEnFilas(filaEnTablero, listaDeCuadros, posHijo, f);
+        doEnColumnas(columnaTablero, listaDeCuadros, posHijo, f);
+
+    }
+    
+    //sub funcion para las filas
+    function doEnFilas(filaEnTablero, listaDeCuadros, posHijo,f) {
+        for (let i = filaEnTablero; i < filaEnTablero + 3; i++) {
+            cuadro = listaDeCuadros[i];
+    
+            for (let j = 0; j < cuadro.children.length; j++) {
+                let hijo = cuadro.children[j];
+                if (estanEnLaMismaFila(hijo.dataset.posCuadro, posHijo)) {
+                   f(hijo);
+                }
+            }
+        }
+    }
+    
+    // Lo mismo para las columnas
+    function doEnColumnas(columnaTablero, listaDeCuadros, posHijo,f) {
+        for (let i = columnaTablero; i < 9; i += 3) {
+            cuadro = listaDeCuadros[i];
+    
+            for (let j = 0; j < cuadro.children.length; j++) {
+                let hijo = cuadro.children[j];
+                if (estanEnLaMismaColumna(hijo.dataset.posCuadro, posHijo)) {
+                    f(hijo);
+                }
+            }
+        }
+    }
+
+
+    function seleccionable(event) {
+        const celdaSeleccionada = event.target;
+
+        const listaDeCuadros = document.querySelectorAll('.cuadro');
+
 
         // Borrar la selecion anterior
         listaDeCuadros.forEach(cuadro => {
@@ -188,9 +247,8 @@ function crearTableroUI(){
             });
         });
 
-        //resalto
-        resaltarFilas(filaEnTablero, listaDeCuadros, posHijo);
-        resaltarColumnas(columnaTablero, listaDeCuadros, posHijo);
+        doEnFilasYColumnas(celdaSeleccionada,resaltarColor);
+        
 
         //codicion asi no resalta numeros de errores al borrarlos
         if(celdaSeleccionada.classList.contains("celdaCompleta")){
@@ -198,44 +256,21 @@ function crearTableroUI(){
         }       
     }
 
-// Funcion auxiliar me agrega la clase celda-resaltada a los tres cuadros de la fila y a sus hijos 
-function resaltarFilas(filaEnTablero, listaDeCuadros, posHijo) {
-    for (let i = filaEnTablero; i < filaEnTablero + 3; i++) {
-        cuadro = listaDeCuadros[i];
 
-        for (let j = 0; j < cuadro.children.length; j++) {
-            let hijo = cuadro.children[j];
-            if (estanEnLaMismaFila(hijo.dataset.posCuadro, posHijo)) {
-                hijo.classList.add('celda-resaltada');
+    function resaltarColor(celda){
+        celda.classList.add('celda-resaltada')
+    }
+
+    function resaltarMismosNumeros(listaDeCuadros,numeroHijo){
+        for (let cuadro of listaDeCuadros) {
+            for (let j = 0; j < cuadro.children.length; j++) {
+                let hijo = cuadro.children[j];
+                if (hijo.textContent == numeroHijo && hijo.classList.contains('celdaCompleta')) {
+                    hijo.classList.add('celda-mismoNumero');
+                }
             }
         }
     }
-}
-
-// Lo mismo para las columnas
-function resaltarColumnas(columnaTablero, listaDeCuadros, posHijo) {
-    for (let i = columnaTablero; i < 9; i += 3) {
-        cuadro = listaDeCuadros[i];
-
-        for (let j = 0; j < cuadro.children.length; j++) {
-            let hijo = cuadro.children[j];
-            if (estanEnLaMismaColumna(hijo.dataset.posCuadro, posHijo)) {
-                hijo.classList.add('celda-resaltada');
-            }
-        }
-    }
-}
-
-function resaltarMismosNumeros(listaDeCuadros,numeroHijo){
-    for (let cuadro of listaDeCuadros) {
-        for (let j = 0; j < cuadro.children.length; j++) {
-            let hijo = cuadro.children[j];
-            if (hijo.textContent == numeroHijo && hijo.classList.contains('celdaCompleta')) {
-                hijo.classList.add('celda-mismoNumero');
-            }
-        }
-    }
-}
 
 
 // Funciones auxiliares para saber si estan en la misma Col o Fila
